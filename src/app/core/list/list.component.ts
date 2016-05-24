@@ -29,7 +29,7 @@ export class ListComponent implements OnInit {
                 text: 'Text3',
             },
         ];
-        console.log("constructing list", this.ads);
+
     }
 
   ngOnInit() {
