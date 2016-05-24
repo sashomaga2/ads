@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IAd, AdComponent } from './../add/ad.component';
-import { DataService } from '../../shared/data.service';
+import { DataService } from '../../shared/services/data.service';
 
 @Component({
     moduleId: module.id,
