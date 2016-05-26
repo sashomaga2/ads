@@ -1,11 +1,14 @@
-<div class="row well">
-    <!-- todo researsh mobile and desctop styles -->
-    <div class='col-md-6 col-xs-5'></div>
-    <div class='col-md-3 col-xs-2'>
-        <a href="#"><span class="glyphicon glyphicon-user"></span> My Profile</a>
-        <a class="btn btn-success" [routerLink]="['./newAd']">
+<div class="row">
+    <div class='col-md-8 col-xs-2'></div>
+    <div class='col-md-3 col-xs-2 text-nowrap'>
+        <a *ngIf="isMain" class="btn btn-success" [style.width.px]="btnWidth" (click)="newAdClicked()" [routerLink]="['./newAd']">
             <span class="glyphicon glyphicon-plus-sign"></span>
             <span>New Ad</span>
         </a>
+        <a *ngIf="!isMain" class="btn btn-success" [style.width.px]="btnWidth" (click)="backClicked()" [routerLink]="['./ads']">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+            <span>Back</span>
+        </a>
+        <a href="#"><span class="glyphicon glyphicon-user"></span>My Profile</a>
     </div>
 </div>

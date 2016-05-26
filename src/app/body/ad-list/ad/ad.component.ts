@@ -3,7 +3,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 
 export interface IAd {
     id: number;
-    caption: string;
+    title: string;
     text: string;
 }
 
@@ -16,7 +16,7 @@ export interface IAd {
 })
 export class AdComponent implements IAd, OnInit {
     id: number;
-    caption: string;
+    title: string;
     text: string;
 
     @Input() data: IAd;
@@ -28,7 +28,7 @@ export class AdComponent implements IAd, OnInit {
 
     ngOnInit() {
         this.id = this.data.id;
-        this.caption = this.data.caption;
+        this.title = this.data.title;
         this.text = this.data.text;
     }
 

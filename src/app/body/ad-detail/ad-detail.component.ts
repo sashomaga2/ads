@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OnActivate,RouteSegment } from '@angular/router';
+import { IAd } from './../ad-list/ad/ad.component';
+import { DataService } from './../../shared/services/data.service';
 
 @Component({
   moduleId: module.id,
@@ -9,13 +11,17 @@ import { OnActivate,RouteSegment } from '@angular/router';
 })
 export class AdDetailComponent implements OnInit, OnActivate {
 
-  constructor() {}
+    ad: IAd = { title: '', text: '', id: NaN };
 
-  ngOnInit() {
-  }
+    constructor(private _dataService: DataService) {
 
-  routerOnActivate(rs: RouteSegment) {
-    console.log('on activate', +rs.getParam('id'));
-  }
+    }
 
+    ngOnInit() {
+    }
+
+    routerOnActivate(rs: RouteSegment) {
+        this._dataService.getAd(+rs.getParam('id'))
+                    .subscribe((ad: IAd) => this.ad = ad);
+    }
 }

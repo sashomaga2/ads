@@ -1,17 +1,17 @@
 [
   {
     "id": 1,
-    "caption": "Caption",
+    "title": "Caption",
     "text": "Text1"
   },
   {
     "id": 2,
-    "caption": "Caption2",
+    "title": "Caption2",
     "text": "Text2"
   },
   {
     "id": 3,
-    "caption": "Caption3",
+    "title": "Caption3",
     "text": "Text3"
   }
 ]

@@ -7,8 +7,7 @@ import { DataService } from '../../shared/services/data.service';
     selector: 'app-list',
     templateUrl: 'list.component.html',
     styleUrls: ['list.component.css'],
-    directives: [AdComponent],
-    providers: [DataService]
+    directives: [AdComponent]
 })
 export class AdListComponent implements OnInit {
     errorMessage: string;

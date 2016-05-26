@@ -10,7 +10,18 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+    isMain: boolean = true;
+    btnWidth: number = 100;
+
     constructor() {}
+
+    newAdClicked() :void {
+        this.isMain = false;
+    }
+
+    backClicked() :void {
+        this.isMain = true;
+    }
 
     ngOnInit() {
     }
