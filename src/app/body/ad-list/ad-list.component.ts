@@ -20,6 +20,8 @@ export class AdListComponent implements OnInit {
       .subscribe(
         ads => this.ads = ads,
         error =>  this.errorMessage = <any>error);
+
+      this._dataService.test();
   }
 
 }
