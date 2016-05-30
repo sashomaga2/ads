@@ -24,7 +24,7 @@ export class DataService {
 
   test() :void {
     console.log('running test ...');
-    this._http.get('http://localhost:5000/ads').map((response)=>{ console.log('response', response); return response; })
+    this._http.get('/ads').map((response)=>{ console.log('response', response); return response; });
   }
 
   private handleError(error: Response) {
