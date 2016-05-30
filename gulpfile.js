@@ -1,8 +1,8 @@
 var gulp = require('gulp');
 var ts = require('gulp-typescript');
 
-gulp.task('compile-ts', function () {
-    return gulp.src(['src/app/**/*.ts'])
+gulp.task('default', function () {
+    return gulp.src(['src/**/*.ts'])
         .pipe(ts({
             noImplicitAny: true,
             experimentalDecorators: true,
@@ -10,5 +10,5 @@ gulp.task('compile-ts', function () {
             emitDecoratorMetadata: true,
             module: "commonjs"
         }))
-        .pipe(gulp.dest('dist/app'));
+        .pipe(gulp.dest('dist'));
 });
