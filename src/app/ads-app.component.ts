@@ -31,7 +31,6 @@ export class AdsAppComponent implements OnInit, OnActivate {
             console.log('data', data);
             console.log('this.newAd', this.newAd);
             if(this.newAd){
-                console.log('exists!');
                 this.newAd.insertAd.subscribe((ad)=>console.log('subscribe', ad));
             }
         });

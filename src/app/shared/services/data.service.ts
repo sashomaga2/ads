@@ -22,10 +22,10 @@ export class DataService {
       .map((products: IAd[]) => products.find(p => p.id === id));
   }
 
-  test() :void {
-    console.log('running test ...');
-    this._http.get('/ads').map((response)=>{ console.log('response', response); return response; });
-  }
+  //test() :void {
+  //  console.log('running test ...');
+  //  this._http.get('/ads').map((response)=>{ console.log('response', response); return response; });
+  //}
 
   private handleError(error: Response) {
     console.error(error);

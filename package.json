@@ -32,10 +32,12 @@
   },
   "devDependencies": {
     "angular-cli": "0.0.*",
+    "browser-sync": "^2.12.10",
     "clang-format": "^1.0.35",
     "codelyzer": "0.0.14",
     "ember-cli-inject-live-reload": "^1.4.0",
     "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.0.7",
     "gulp-typescript": "^2.13.5",
     "jasmine-core": "^2.4.1",
     "jasmine-spec-reporter": "^2.4.0",

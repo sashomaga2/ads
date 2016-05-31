@@ -21,7 +21,7 @@ export class AdListComponent implements OnInit {
         ads => this.ads = ads,
         error =>  this.errorMessage = <any>error);
 
-      this._dataService.test();
+      //this._dataService.test();
   }
 
 }
