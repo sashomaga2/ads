@@ -6,7 +6,7 @@ import { IAd } from '../../body/ad-list/ad/ad.component';
 
 @Injectable()
 export class DataService {
-  private _productUrl = 'ads.json';
+  private _productUrl = '/ads-data';
 
   constructor(private _http: Http) { }
 

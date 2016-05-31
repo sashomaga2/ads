@@ -4,6 +4,7 @@ const gulp = require('gulp');
 const browserSync = require('browser-sync');
 const ts = require('gulp-typescript');
 const nodemon = require('gulp-nodemon');
+
 const BROWSER_RELOAD_DELAY = 500;
 
 gulp.task('nodemon', function (cb) {

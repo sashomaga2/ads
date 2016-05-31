@@ -5,7 +5,7 @@ const express = require('express');
 
 const app = express();
 
-const port = 5000;
+const port = 3000;
 
 const path = require('path');
 
@@ -17,6 +17,33 @@ app.get('/', function(req, res) {
 
 app.get('/ads', function(req, res) {
     res.sendFile(path.resolve(__dirname + '/../index.html'));
+});
+
+app.get('/ads-data', function(req, res) {
+    console.log('inside /ads-data');
+    var data = [
+        {
+            "id": 1,
+            "caption": "Caption",
+            "text": "Text1"
+        },
+        {
+            "id": 2,
+            "caption": "Caption2",
+            "text": "Text2"
+        },
+        {
+            "id": 3,
+            "caption": "Caption3",
+            "text": "Text3"
+        },
+        {
+            "id": 4,
+            "caption": "My Ad",
+            "text": "Selling shits"
+        }
+    ];
+    res.json(data);
 });
 
 app.listen(port, function(err){

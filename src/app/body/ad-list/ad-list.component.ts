@@ -15,13 +15,11 @@ export class AdListComponent implements OnInit {
     constructor(private _dataService: DataService) {
     }
 
-  ngOnInit() {
-    this._dataService.getAds()
-      .subscribe(
-        ads => this.ads = ads,
-        error =>  this.errorMessage = <any>error);
-
-      //this._dataService.test();
-  }
+    ngOnInit() {
+        this._dataService.getAds()
+            .subscribe(
+            ads => this.ads = ads,
+            error =>  this.errorMessage = <any>error);
+    }
 
 }
