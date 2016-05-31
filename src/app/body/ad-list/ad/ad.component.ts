@@ -5,6 +5,7 @@ export interface IAd {
     id: number;
     title: string;
     text: string;
+    price: number;
 }
 
 @Component({
@@ -18,6 +19,7 @@ export class AdComponent implements IAd, OnInit {
     id: number;
     title: string;
     text: string;
+    price: number;
 
     @Input() data: IAd;
     @Output() clicked: EventEmitter<IAd> =
@@ -30,6 +32,7 @@ export class AdComponent implements IAd, OnInit {
         this.id = this.data.id;
         this.title = this.data.title;
         this.text = this.data.text;
+        this.price = this.data.price;
     }
 
     onClick() : void {

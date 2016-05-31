@@ -11,7 +11,7 @@ import { DataService } from './../../shared/services/data.service';
 })
 export class AdDetailComponent implements OnInit, OnActivate {
 
-    ad: IAd = { title: '', text: '', id: NaN };
+    ad: IAd = { title: '', text: '', id: NaN, price: NaN };
 
     constructor(private _dataService: DataService) {
 

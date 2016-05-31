@@ -6,12 +6,12 @@ import { IAd } from '../../body/ad-list/ad/ad.component';
 
 @Injectable()
 export class DataService {
-  private _productUrl = '/ads-data';
+  private _adsDataUrl = '/ads-data';
 
   constructor(private _http: Http) { }
 
   getAds(): Observable<IAd[]> {
-      return this._http.get(this._productUrl)
+      return this._http.get(this._adsDataUrl)
           .map((response: Response) => <IAd[]> response.json())
           .do(data => console.log('All: ' +  JSON.stringify(data)))
           .catch(this.handleError);
@@ -19,13 +19,8 @@ export class DataService {
 
   getAd(id: number): Observable<IAd> {
     return this.getAds()
-      .map((products: IAd[]) => products.find(p => p.id === id));
+      .map((ads: IAd[]) => ads.find(p => p.id === id));
   }
-
-  //test() :void {
-  //  console.log('running test ...');
-  //  this._http.get('/ads').map((response)=>{ console.log('response', response); return response; });
-  //}
 
   private handleError(error: Response) {
     console.error(error);

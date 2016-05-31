@@ -9,6 +9,24 @@ const port = 3000;
 
 const path = require('path');
 
+//TODO move to separated module
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/ads');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log('we are connected!!!');
+});
+
+var adShema = new mongoose.Schema({
+    title: String,
+    text: String,
+    price: Number,
+    id: Number
+});
+var AdModel = mongoose.model('ads', adShema);
+////////////////////////////////////////////
+
 app.use(express.static(__dirname + '/..'));
 
 app.get('/', function(req, res) {
@@ -20,32 +38,14 @@ app.get('/ads', function(req, res) {
 });
 
 app.get('/ads-data', function(req, res) {
-    console.log('inside /ads-data');
-    var data = [
-        {
-            "id": 1,
-            "caption": "Caption",
-            "text": "Text1"
-        },
-        {
-            "id": 2,
-            "caption": "Caption2",
-            "text": "Text2"
-        },
-        {
-            "id": 3,
-            "caption": "Caption3",
-            "text": "Text3"
-        },
-        {
-            "id": 4,
-            "caption": "My Ad",
-            "text": "Selling shits"
-        }
-    ];
-    res.json(data);
+    AdModel.find(function(err, ads) {
+        if (err) return console.error(err);
+        res.json(ads);
+    });
 });
 
 app.listen(port, function(err){
     console.log('Running server on port: ' + port);
 });
+
+module.exports = app;
