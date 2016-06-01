@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import { NavService } from './../shared/services/nav.service';
 
 @Component({
     moduleId: module.id,
@@ -13,7 +15,11 @@ export class HeaderComponent implements OnInit {
     isMain: boolean = true;
     btnWidth: number = 100;
 
-    constructor() {}
+    subscription: Subscription;
+
+    constructor(private _navService: NavService) {
+
+    }
 
     newAdClicked() :void {
         this.isMain = false;
@@ -24,5 +30,10 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.subscription = this._navService.selectedRoute$
+            .subscribe(item => {
+                console.log('SUBSCRIBE');
+                this.isMain = false;
+            })
     }
 }
