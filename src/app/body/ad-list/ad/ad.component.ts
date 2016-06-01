@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
 export interface IAd {
-    id: number;
+    _id: string;
     title: string;
     text: string;
     price: number;
@@ -16,7 +16,7 @@ export interface IAd {
   directives: [ROUTER_DIRECTIVES]
 })
 export class AdComponent implements IAd, OnInit {
-    id: number;
+    _id: string;
     title: string;
     text: string;
     price: number;
@@ -29,7 +29,7 @@ export class AdComponent implements IAd, OnInit {
     }
 
     ngOnInit() {
-        this.id = this.data.id;
+        this._id = this.data._id;
         this.title = this.data.title;
         this.text = this.data.text;
         this.price = this.data.price;

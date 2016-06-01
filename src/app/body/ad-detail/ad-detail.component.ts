@@ -11,7 +11,7 @@ import { DataService } from './../../shared/services/data.service';
 })
 export class AdDetailComponent implements OnInit, OnActivate {
 
-    ad: IAd = { title: '', text: '', id: NaN, price: NaN };
+    ad: IAd = { title: '', text: '', _id: '', price: NaN };
 
     constructor(private _dataService: DataService) {
 
@@ -21,7 +21,7 @@ export class AdDetailComponent implements OnInit, OnActivate {
     }
 
     routerOnActivate(rs: RouteSegment) {
-        this._dataService.getAd(+rs.getParam('id'))
+        this._dataService.getAd(rs.getParam('id'))
                     .subscribe((ad: IAd) => this.ad = ad);
     }
 }

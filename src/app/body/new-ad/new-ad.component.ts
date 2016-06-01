@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FORM_DIRECTIVES, FormBuilder, Control, ControlGroup, Validators } from '@angular/common';
 import { IAd } from './../ad-list/ad/ad.component';
+import { DataService } from './../../shared/services/data.service';
 
 @Component({
   moduleId: module.id,
@@ -18,10 +19,11 @@ export class NewAdComponent implements OnInit {
     @Output() insertAd: EventEmitter<IAd> =
         new EventEmitter<IAd>();
 
-    constructor(private builder: FormBuilder) {
-        this.title = new Control('', Validators.required);
+    constructor(private builder: FormBuilder,
+                private _dataService: DataService) {
+        this.title = new Control('', Validators.compose([Validators.required, Validators.minLength(3)]));
         this.text = new Control('', Validators.compose([Validators.required, Validators.minLength(3)]));
-        this.price = new Control('', Validators.required);
+        this.price = new Control('', Validators.compose([Validators.required, Validators.pattern('\\d+\\.?\\d{0,2}')]));
 
         this.adForm = builder.group({
             title: this.title,
@@ -30,15 +32,31 @@ export class NewAdComponent implements OnInit {
         });
     }
 
-    hasError() :Boolean {
-        var valid = !this.text.valid && this.submitAttempt;
+    hasError(field) :Boolean {
+        var valid = !this[field].valid && this.submitAttempt;
         return valid;
+    }
+
+    _clearForm(form) :void {
+        var controls = form.controls;
+        for (let name in controls) {
+            let control = controls[name];
+            control.updateValue('');
+            //control.setErrors(null);
+        }
     }
 
     _insertAd(form) :void {
         this.submitAttempt = true;
-        this.insertAd.emit(form.value);
-        console.log('data', form.value);
+
+        if(form.valid) { //send over
+            this.insertAd.emit(form.value);
+            this.submitAttempt = false;
+            this._dataService.saveAd(form.value);
+            this._clearForm(form);
+        } else { //
+
+        }
     }
 
     ngOnInit() {

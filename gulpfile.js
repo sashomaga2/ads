@@ -46,6 +46,18 @@ gulp.task('compile-ts', function () {
         .pipe(gulp.dest('dist'));
 });
 
+gulp.task('copy-html', function(){
+    gulp.src('src/**/*.html')
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('copy-js', function(){
+    gulp.src('src/**/*.js')
+        .pipe(gulp.dest('dist'));
+});
+
 gulp.task('serve', ['browser-sync'], function () {
     gulp.watch('src/**/*.ts',   ['compile-ts', browserSync.reload]);
+    gulp.watch('src/**/*.html', ['copy-html', browserSync.reload]);
+    gulp.watch('src/**/*.js', ['copy-js', browserSync.reload]);
 });
