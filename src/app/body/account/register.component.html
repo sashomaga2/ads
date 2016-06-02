@@ -5,50 +5,62 @@
             <div style="float:right; font-size: 85%; position: relative; top:-10px"><a [routerLink]="['/login']" >Sign In</a></div>
         </div>
         <div class="panel-body" >
-            <form id="signupform" class="form-horizontal" role="form">
+            <form class="form-horizontal" role="form" [ngFormModel]="registerForm" (ngSubmit)="register(registerForm)">
 
                 <div id="signupalert" style="display:none" class="alert alert-danger">
                     <p>Error:</p>
                     <span></span>
                 </div>
 
-                <div class="form-group">
-                    <label for="email" class="col-md-3 control-label">Email</label>
+                <div class="form-group row" [ngClass]="{'has-error' : hasError('email') }">
+                    <label for="email" class="col-md-3 form-control-label">Email</label>
                     <div class="col-md-9">
-                        <input type="text" class="form-control" name="email" placeholder="Email Address">
+                        <input type="text" id="email" class="form-control" name="email" placeholder="Email Address" ngControl="email">
+                        <em *ngIf="email.hasError('required') && submitAttempt">Required</em>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="firstname" class="col-md-3 control-label">First Name</label>
+                <div class="form-group row" [ngClass]="{'has-error' : hasError('firstName') }">
+                    <label for="firstname" class="col-md-3 form-control-label">First Name</label>
                     <div class="col-md-9">
-                        <input type="text" class="form-control" name="firstname" placeholder="First Name">
+                        <input type="text" class="form-control" name="firstname" placeholder="First Name" ngControl="firstName">
+                        <em *ngIf="firstName.hasError('required') && submitAttempt">Required</em>
+                        <em *ngIf="firstName.hasError('minlength') && submitAttempt">Must be at least 2 characters</em>
+                        <em *ngIf="firstName.hasError('maxlength') && submitAttempt">Must be up to 20 characters</em>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="lastname" class="col-md-3 control-label">Last Name</label>
+                <div class="form-group row" [ngClass]="{'has-error' : hasError('lastName') }">
+                    <label for="lastname" class="col-md-3 form-control-label">Last Name</label>
                     <div class="col-md-9">
-                        <input type="text" class="form-control" name="lastname" placeholder="Last Name">
+                        <input type="text" class="form-control" name="lastname" placeholder="Last Name" ngControl="lastName">
+                        <em *ngIf="lastName.hasError('required') && submitAttempt">Required</em>
+                        <em *ngIf="lastName.hasError('minlength') && submitAttempt">Must be at least 2 characters</em>
+                        <em *ngIf="lastName.hasError('maxlength') && submitAttempt">Must be up to 20 characters</em>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="password" class="col-md-3 control-label">Password</label>
+                <div class="form-group row" [ngClass]="{'has-error' : hasError('password') }">
+                    <label for="password" class="col-md-3 form-control-label">Password</label>
                     <div class="col-md-9">
-                        <input type="password" class="form-control" name="passwd" placeholder="Password">
+                        <input type="password" class="form-control" name="passwd" placeholder="Password" ngControl="password">
+                        <em *ngIf="password.hasError('required') && submitAttempt">Required</em>
+                        <em *ngIf="password.hasError('minlength') && submitAttempt">Must be at least 6 characters</em>
+                        <em *ngIf="password.hasError('maxlength') && submitAttempt">Must be up to 20 characters</em>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="icode" class="col-md-3 control-label">Invitation Code</label>
+                <div class="form-group row" [ngClass]="{'has-error' : hasError('retypePassword') }">
+                    <label for="icode" class="col-md-3 form-control-label">Retype Password</label>
                     <div class="col-md-9">
-                        <input type="text" class="form-control" name="icode" placeholder="">
+                        <input type="password" class="form-control" name="passwd" placeholder="Retype Password" ngControl="retypePassword">
+                        <em *ngIf="retypePassword.hasError('required') && submitAttempt">Required</em>
+                        <em *ngIf="retypePassword.hasError('minlength') && submitAttempt">Passwords must match</em>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group row">
                     <!-- Button -->
                     <div class="col-md-offset-3 col-md-9">
-                        <button id="btn-signup" type="button" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
+                        <button type="submit" class="btn btn-info"><i class="icon-hand-right"></i> Sign Up</button>
                         <span style="margin-left:8px;">or</span>
                     </div>
                 </div>

@@ -3,7 +3,6 @@ import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { IAd } from '../../body/ad-list/ad/ad.component';
 
-
 @Injectable()
 export class DataService {
     private _adsDataUrl = '/ads-data';
