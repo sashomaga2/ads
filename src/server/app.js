@@ -31,7 +31,9 @@ app.use(bodyParser.urlencoded());
 //});
 ////
 app.get('/ads-data', function(req, res) {
-    AdModel.find(function(err, ads) {
+    var id = req.query.id;
+
+    AdModel.find(id ? { _id: id } : {}, function(err, ads) {
         if (err) {
             return console.error(err);
         }

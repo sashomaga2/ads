@@ -12,28 +12,30 @@ export class DataService {
 
     getAds(): Observable<IAd[]> {
         return this._http.get(this._adsDataUrl)
-          .map((response: Response) => <IAd[]> response.json())
-          .do(data => console.log('All: ' +  JSON.stringify(data)))
-          .catch(this.handleError);
+            .map((response: Response) => <IAd[]> response.json())
+            .do(data => console.log('getAds: ' +  JSON.stringify(data)))
+            .catch(this.handleError);
     }
 
     getAd(id: string): Observable<IAd> {
-        return this.getAds()
-          .map((ads: IAd[]) => ads.find(ad => ad._id === id));
+        return this._http.get(`${this._adsDataUrl}?id=${id}`)
+            .map((response: Response) => <IAd[]> response.json()[0])
+            .do(data => console.log('getAd: ' +  JSON.stringify(data)))
+            .catch(this.handleError);
     }
 
     saveAd(ad: IAd) : boolean {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        console.log('saving ad', ad);
-        //
-        this._http.post(this._adsDataUrl, JSON.stringify(ad), {headers: headers}).subscribe((result)=> console.log('post result', result));
+        this._http.post(this._adsDataUrl, JSON.stringify(ad), {headers: headers})
+                            .subscribe((result)=> console.log('post result', result));
+        // TODO status
         return true;
     }
 
     private handleError(error: Response) {
-    console.error(error);
-    return Observable.throw(error.json().error || 'Server error');
+        console.error(error);
+        return Observable.throw(error.json().error || 'Server error');
     }
 }

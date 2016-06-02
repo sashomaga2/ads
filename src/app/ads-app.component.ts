@@ -9,6 +9,8 @@ import { AdDetailComponent } from './body/ad-detail/ad-detail.component';
 import { DataService } from './shared/services/data.service';
 import { NavService } from './shared/services/nav.service';
 
+export const enum Routes {Ads, NewAd, AdDetail};
+
 @Component({
     moduleId: module.id,
     selector: 'ads-app',
