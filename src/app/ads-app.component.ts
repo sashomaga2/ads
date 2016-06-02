@@ -6,10 +6,12 @@ import { AdListComponent } from './body/ad-list/ad-list.component';
 import { HeaderComponent } from './header/header.component';
 import { NewAdComponent } from './body/new-ad/new-ad.component';
 import { AdDetailComponent } from './body/ad-detail/ad-detail.component';
+import { LoginComponent } from './body/account/login.component';
+import { RegisterComponent } from './body/account/register.component';
 import { DataService } from './shared/services/data.service';
 import { NavService } from './shared/services/nav.service';
 
-export const enum Routes {Ads, NewAd, AdDetail};
+export const enum Routes {Ads, NewAd, AdDetail, Login, Register};
 
 @Component({
     moduleId: module.id,
@@ -23,6 +25,11 @@ export const enum Routes {Ads, NewAd, AdDetail};
     {path: '/ads',  component: AdListComponent},
     {path: '/newAd',  component: NewAdComponent},
     {path: '/adDetail/:id',  component: AdDetailComponent},
+    {path: '/login',  component: LoginComponent},
+    {path: '/register',  component: RegisterComponent},
+    {path: '*',  component: AdListComponent},
+    //TODO fix
+    {path: '/',  component: AdListComponent},
 ])
 export class AdsAppComponent implements OnInit, OnActivate {
     title = 'ads-app!';
@@ -52,7 +59,7 @@ export class AdsAppComponent implements OnInit, OnActivate {
     }
 
     ngOnInit() {
-        this._router.navigate(['/ads']);
+        //this._router.navigate(['/ads']);
     }
 
     OnInsertAdd(ad) {

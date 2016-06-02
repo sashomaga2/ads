@@ -32,7 +32,6 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
         this.subscription = this._navService.selectedRoute$
             .subscribe(item => {
-                console.log('SUBSCRIBE');
                 this.isMain = false;
             })
     }
