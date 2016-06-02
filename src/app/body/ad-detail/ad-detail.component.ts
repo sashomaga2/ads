@@ -3,7 +3,7 @@ import { OnActivate, RouteSegment } from '@angular/router';
 import { IAd } from './../ad-list/ad/ad.component';
 import { DataService } from './../../shared/services/data.service';
 import { NavService } from './../../shared/services/nav.service';
-import { Routes } from './../../ads-app.component';
+import { AppRoutes } from './../../ads-app.component';
 
 @Component({
   moduleId: module.id,
@@ -27,6 +27,6 @@ export class AdDetailComponent implements OnInit, OnActivate {
         this._dataService.getAd(rs.getParam('id'))
                     .subscribe((ad: IAd) => this.ad = ad);
 
-        this._navService.changedRoute(Routes.AdDetail);
+        this._navService.changedRoute(AppRoutes.AdDetail);
     }
 }

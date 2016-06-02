@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OnActivate, ROUTER_DIRECTIVES } from '@angular/router';
 import { FORM_DIRECTIVES, FormBuilder, Control, ControlGroup, Validators } from '@angular/common';
 import { NavService } from './../../shared/services/nav.service';
-import { Routes } from './../../ads-app.component';
+import { AppRoutes } from './../../ads-app.component';
 import { FormValidator } from './../../shared/validators/form-validator';
 
 
@@ -54,6 +54,6 @@ export class RegisterComponent implements OnInit, OnActivate {
     }
 
     routerOnActivate() {
-        this._navService.changedRoute(Routes.Register);
+        this._navService.changedRoute(AppRoutes.Register);
     }
 }
