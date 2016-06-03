@@ -10,7 +10,9 @@ const port = 3000;
 
 const path = require('path');
 
-const AdModel = require('./db');
+const AdModel = require('./db').AdModel;
+const UserModel = require('./db').UserModel;
+const STATUS = { FAIL: 0, SUCCESS: 1 };
 
 app.use(express.static(__dirname + '/..'));
 
@@ -54,8 +56,32 @@ app.post('/ads-data', function(req, res) {
     res.send('work');
 });
 
+app.post('/register-api', function(req, res) {
+    var reqBody = req.body;
+    //ad = new AdModel({ title: reqBody.title, text: reqBody.text, price: Number(reqBody.price) });
+
+    /*
+     email: String,
+     firstName: String,
+     lastName: String,
+     password: String
+    * */
+
+    var result = { status: STATUS.SUCCESS };
+
+    userModel.findOne({ email: reqBody.email });
+
+    console.log('reqBody', reqBody);
+
+    res.json(result);
+});
+
 app.get('*', function(req, res, next) {
-    if(req.url.indexOf('vendor') !== -1) return next()
+
+    if(req.url.indexOf('vendor') !== -1){
+        // serve map files from vendor directory
+        return next();
+    }
     res.sendFile(path.resolve(__dirname + '/../index.html'));
 });
 

@@ -7,13 +7,21 @@ db.once('open', function() {
     console.log('Connected to db!');
 });
 
-var adShema = new mongoose.Schema({
+var adSchema = new mongoose.Schema({
     title: String,
     text: String,
     price: Number
 });
 
-var AdModel = mongoose.model('ads', adShema);
+var userSchema = new mongoose.Schema({
+    email: String,
+    firstName: String,
+    lastName: String,
+    password: String
+});
 
-module.exports = AdModel;
+var AdModel = mongoose.model('ads', adSchema);
+var UserModel = mongoose.model('users', userSchema);
+
+module.exports = { AdModel: AdModel, UserModel: UserModel};
 

@@ -6,8 +6,8 @@ import { AdListComponent } from './body/ad-list/ad-list.component';
 import { HeaderComponent } from './header/header.component';
 import { NewAdComponent } from './body/new-ad/new-ad.component';
 import { AdDetailComponent } from './body/ad-detail/ad-detail.component';
-import { LoginComponent } from './body/account/login.component';
-import { RegisterComponent } from './body/account/register.component';
+import { LoginComponent } from './body/auth/login.component';
+import { RegisterComponent } from './body/auth/register.component';
 import { DataService } from './shared/services/data.service';
 import { NavService } from './shared/services/nav.service';
 

@@ -5,6 +5,13 @@ import { NavService } from './../../shared/services/nav.service';
 import { AppRoutes } from './../../ads-app.component';
 import { FormValidator } from './../../shared/validators/form-validator';
 
+export interface IUser {
+    _id?: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+}
 
 @Component({
     moduleId: module.id,
@@ -39,7 +46,7 @@ export class RegisterComponent implements OnInit, OnActivate {
         });
     }
 
-    register(form) :void {
+    register(form: ControlGroup) :void {
         this.submitAttempt = true;
         console.log('%c register', 'color:green;' , form);
     }
