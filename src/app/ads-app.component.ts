@@ -11,7 +11,7 @@ import { RegisterComponent } from './body/account/register.component';
 import { DataService } from './shared/services/data.service';
 import { NavService } from './shared/services/nav.service';
 
-export const enum Routes {Ads, NewAd, AdDetail, Login, Register};
+export const enum AppRoutes {Ads, NewAd, AdDetail, Login, Register};
 
 @Component({
     moduleId: module.id,
@@ -53,7 +53,6 @@ export class AdsAppComponent implements OnInit, OnActivate {
     routerOnActivate(curr: RouteSegment){
         console.log('routerOnActivate', arguments);
         if(this.newAd){
-            console.log('exists!');
             this.newAd.insertAd.subscribe((ad)=>console.log('subscribe', ad));
         }
     }
