@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit, OnActivate {
         this.email = new Control('', Validators.compose([Validators.required, FormValidator.mailFormat()]));
         this.firstName = new Control('', Validators.compose([Validators.required, Validators.minLength(2)]));
         this.lastName = new Control('', Validators.compose([Validators.required, Validators.minLength(2)]));
-        this.password = new Control('', Validators.compose([Validators.required, Validators.minLength(2)]));
+        this.password = new Control('', Validators.compose([Validators.required, Validators.minLength(6)]));
         this.retypePassword = new Control('', Validators.compose([Validators.required, FormValidator.passwordEqual(this.password)]));
 
         this.registerForm = builder.group({
