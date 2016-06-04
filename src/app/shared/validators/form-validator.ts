@@ -1,5 +1,5 @@
 import { Control } from '@angular/common';
-import { ValidatorFn } from "@angular/common/esm/src/forms/directives/validators";
+import { ValidatorFn } from "@angular/common/src/forms/directives/validators";
 
 export class FormValidator{
 
