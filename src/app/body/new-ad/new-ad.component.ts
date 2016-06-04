@@ -31,14 +31,13 @@ export class NewAdComponent extends BaseForm implements OnInit {
         });
     }
 
-    _clearForm(form) :void {
-        var controls = form.controls;
-        for (let name in controls) {
-            let control = controls[name];
-            control.updateValue('');
-            //control.setErrors(null);
-        }
-    }
+    //_clearForm(form) :void {
+    //    var controls = form.controls;
+    //    for (let name in controls) {
+    //        let control = controls[name];
+    //        control.updateValue('');
+    //    }
+    //}
 
     _insertAd(form) :void {
         this.submitAttempt = true;
@@ -47,7 +46,7 @@ export class NewAdComponent extends BaseForm implements OnInit {
             this.insertAd.emit(form.value);
             this.submitAttempt = false;
             this._dataService.saveAd(form.value);
-            this._clearForm(form);
+            this._clear();
         } else { //
 
         }
