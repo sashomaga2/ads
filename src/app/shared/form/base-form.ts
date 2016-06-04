@@ -15,11 +15,10 @@ export class BaseForm {
         this._builder = injector.get(FormBuilder);
     }
 
-    _clear() :void {
+    _clearForm() :void {
         var controls = this.form.controls;
         for (let name in controls) {
-            let control: Control = <Control>controls[name];
-            control.updateValue('', {});
+            (<Control>controls[name]).updateValue('', {});
         }
     }
 
@@ -33,7 +32,7 @@ export class BaseForm {
     //    if(form.valid) { //send over
     //        this.submitAttempt = false;
     //        this._dataService.saveAd(form.value);
-    //        this._clear();
+    //        this._clearForm();
     //    } else { //
     //
     //    }
