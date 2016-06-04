@@ -5,7 +5,7 @@
             <div style="float:right; font-size: 85%; position: relative; top:-10px"><a [routerLink]="['/login']" >Sign In</a></div>
         </div>
         <div class="panel-body" >
-            <form class="form-horizontal" role="form" [ngFormModel]="registerForm" (ngSubmit)="_register(registerForm)">
+            <form class="form-horizontal" role="form" [ngFormModel]="form" (ngSubmit)="_register(form)">
 
                 <div id="signupalert" style="display:none" class="alert alert-danger">
                     <p>Error:</p>

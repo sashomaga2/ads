@@ -5,6 +5,7 @@ import { NavService } from './../../shared/services/nav.service';
 import { AuthService } from './../../shared/services/auth.service';
 import { AppRoutes } from './../../ads-app.component';
 import { FormValidator } from './../../shared/validators/form-validator';
+import { BaseForm } from './../../shared/form/base-form';
 
 export interface IUser {
     _id?: string;
@@ -21,25 +22,24 @@ export interface IUser {
     //styleUrls: ['login.component.css']
     directives: [ROUTER_DIRECTIVES]
 })
-export class RegisterComponent implements OnInit, OnActivate {
-    registerForm: ControlGroup;
+export class RegisterComponent extends BaseForm implements OnInit, OnActivate {
+    //form: ControlGroup;
     email: Control;
     firstName: Control;
     lastName: Control;
     password: Control;
     retypePassword: Control;
-    submitAttempt: boolean = false;
 
     constructor(private _navService: NavService,
-                private _authService: AuthService,
-                private builder: FormBuilder) {
+                private _authService: AuthService) {
+        super();
         this.email = new Control('', Validators.compose([Validators.required, FormValidator.mailFormat()]));
         this.firstName = new Control('', Validators.compose([Validators.required, Validators.minLength(2)]));
         this.lastName = new Control('', Validators.compose([Validators.required, Validators.minLength(2)]));
         this.password = new Control('', Validators.compose([Validators.required, Validators.minLength(6)]));
         this.retypePassword = new Control('', Validators.compose([Validators.required, FormValidator.passwordEqual(this.password)]));
 
-        this.registerForm = builder.group({
+        this.form = this._builder.group({
             email: this.email,
             firstName: this.firstName,
             lastName: this.lastName,
@@ -55,12 +55,6 @@ export class RegisterComponent implements OnInit, OnActivate {
         this._authService.register(form.value);
         
         
-    }
-
-    //TODO Move to base class
-    hasError(field) :Boolean {
-        var valid = !this[field].valid && this.submitAttempt;
-        return valid;
     }
 
     ngOnInit() {
