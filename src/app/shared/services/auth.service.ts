@@ -23,7 +23,7 @@ export class AuthService {
     //        .catch(this.handleError);
     //}
 
-    saveAd(user: IUser) : boolean {
+    register(user: IUser) : boolean {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
 

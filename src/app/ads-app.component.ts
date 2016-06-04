@@ -10,6 +10,7 @@ import { LoginComponent } from './body/auth/login.component';
 import { RegisterComponent } from './body/auth/register.component';
 import { DataService } from './shared/services/data.service';
 import { NavService } from './shared/services/nav.service';
+import { AuthService } from './shared/services/auth.service';
 
 export const enum AppRoutes {Ads, NewAd, AdDetail, Login, Register};
 
@@ -19,7 +20,7 @@ export const enum AppRoutes {Ads, NewAd, AdDetail, Login, Register};
     templateUrl: 'ads-app.component.html',
     styleUrls: ['ads-app.component.css'],
     directives: [AdListComponent, HeaderComponent, ROUTER_DIRECTIVES],
-    providers: [HTTP_PROVIDERS, DataService, NavService]
+    providers: [HTTP_PROVIDERS, DataService, NavService, AuthService]
 })
 @Routes([
     {path: '/ads',  component: AdListComponent},

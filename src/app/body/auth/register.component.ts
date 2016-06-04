@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OnActivate, ROUTER_DIRECTIVES } from '@angular/router';
 import { FORM_DIRECTIVES, FormBuilder, Control, ControlGroup, Validators } from '@angular/common';
 import { NavService } from './../../shared/services/nav.service';
+import { AuthService } from './../../shared/services/auth.service';
 import { AppRoutes } from './../../ads-app.component';
 import { FormValidator } from './../../shared/validators/form-validator';
 
@@ -30,6 +31,7 @@ export class RegisterComponent implements OnInit, OnActivate {
     submitAttempt: boolean = false;
 
     constructor(private _navService: NavService,
+                private _authService: AuthService,
                 private builder: FormBuilder) {
         this.email = new Control('', Validators.compose([Validators.required, FormValidator.mailFormat()]));
         this.firstName = new Control('', Validators.compose([Validators.required, Validators.minLength(2)]));
@@ -46,9 +48,13 @@ export class RegisterComponent implements OnInit, OnActivate {
         });
     }
 
-    register(form: ControlGroup) :void {
+
+    _register(form: ControlGroup) :void {
         this.submitAttempt = true;
         console.log('%c register', 'color:green;' , form);
+        this._authService.register(form.value);
+        
+        
     }
 
     //TODO Move to base class

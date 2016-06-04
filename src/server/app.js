@@ -69,11 +69,26 @@ app.post('/register-api', function(req, res) {
 
     var result = { status: STATUS.SUCCESS };
 
-    userModel.findOne({ email: reqBody.email });
-
-    console.log('reqBody', reqBody);
-
-    res.json(result);
+    UserModel.findOne({ email: reqBody.email }, function(err, existAlready){
+        console.log('findOne', existAlready);
+        if(err){
+            result.error = "DB Error!";
+        } else if(existAlready) {
+            result.error = "Email is already used!";
+        } else {
+            var user = new UserModel({ email: reqBody.email }); 
+            return user.save(function(err){
+                if(err) {
+                    result.error = "DB Error!";
+                }
+                
+                res.json(result);
+                console.log('USER SAVED!!!');
+            })
+        }
+        
+        res.json(result);
+    });
 });
 
 app.get('*', function(req, res, next) {
