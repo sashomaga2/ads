@@ -2,12 +2,15 @@ import { Injectable, OnInit } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { IAd } from '../../body/ad-list/ad/ad.component';
+import { BaseHttpService } from './base-http.service';
 
 @Injectable()
-export class DataService {
+export class DataService extends BaseHttpService {
     private _adsDataUrl = '/ads-data';
 
-    constructor(private _http: Http) { }
+    constructor(private _http: Http) {
+        super();
+     }
 
     getAds(): Observable<IAd[]> {
         return this._http.get(this._adsDataUrl)
@@ -23,7 +26,7 @@ export class DataService {
             .catch(this.handleError);
     }
 
-    saveAd(ad: IAd) : boolean {
+    create(ad: IAd) : boolean {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
@@ -31,10 +34,5 @@ export class DataService {
                             .subscribe((result)=> console.log('post result', result));
         // TODO status
         return true;
-    }
-
-    private handleError(error: Response) {
-        console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
     }
 }

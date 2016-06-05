@@ -1,10 +1,11 @@
 import { FormBuilder, ControlGroup, Control } from '@angular/common';
 import { ReflectiveInjector } from '@angular/core';
+import { IRestService } from './../services/base-http.service';
 
-export class BaseForm {
+export abstract class BaseForm {
     submitAttempt: boolean = false;
     form: ControlGroup;
-
+    protected _restService: IRestService;
     protected _builder: FormBuilder;
 
     constructor(){
@@ -26,15 +27,14 @@ export class BaseForm {
         return !this[field].valid && this.submitAttempt;
     }
 
-    //send(form: ControlGroup) :void {
-    //    this.submitAttempt = true;
-    //
-    //    if(form.valid) { //send over
-    //        this.submitAttempt = false;
-    //        this._dataService.saveAd(form.value);
-    //        this._clearForm();
-    //    } else { //
-    //
-    //    }
-    //}
+    send(form: ControlGroup) :void {
+       this.submitAttempt = true;
+    
+       if(form.valid) { //send over
+           this.submitAttempt = false;
+           this._restService.create(form.value);
+           this._clearForm();
+       } else { //
+       }
+    }
 }

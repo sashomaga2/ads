@@ -20,6 +20,7 @@ export class NewAdComponent extends BaseForm implements OnInit {
 
     constructor(private _dataService: DataService) {
         super();
+        this._restService = _dataService;
         this.title = new Control('', Validators.compose([Validators.required, Validators.minLength(3)]));
         this.text = new Control('', Validators.compose([Validators.required, Validators.minLength(3)]));
         this.price = new Control('', Validators.compose([Validators.required, Validators.pattern('\\d+\\.?\\d{0,2}')]));
@@ -29,19 +30,6 @@ export class NewAdComponent extends BaseForm implements OnInit {
             text: this.text,
             price: this.price
         });
-    }
-
-    _insertAd(form) :void {
-        this.submitAttempt = true;
-
-        if(form.valid) { //send over
-            this.insertAd.emit(form.value);
-            this.submitAttempt = false;
-            this._dataService.saveAd(form.value);
-            this._clearForm();
-        } else { //
-
-        }
     }
 
     ngOnInit() {

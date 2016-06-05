@@ -2,28 +2,18 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { IUser } from './../../body/auth/register.component';
+import { BaseHttpService } from './base-http.service';
 
 @Injectable()
-export class AuthService {
+export class AuthService extends BaseHttpService {
     private _connectionUrl = '/register-api';
 
-    constructor(private _http: Http) { }
+    constructor(private _http: Http) { 
+        super();
+    }
 
-    //getAds(): Observable<string> {
-    //    return this._http.get(this._adsDataUrl)
-    //        .map((response: Response) => <IAd[]> response.json())
-    //        .do(data => console.log('getAds: ' +  JSON.stringify(data)))
-    //        .catch(this.handleError);
-    //}
-    //
-    //getAd(id: string): Observable<IAd> {
-    //    return this._http.get(`${this._adsDataUrl}?id=${id}`)
-    //        .map((response: Response) => <IAd[]> response.json()[0])
-    //        .do(data => console.log('getAd: ' +  JSON.stringify(data)))
-    //        .catch(this.handleError);
-    //}
-
-    register(user: IUser) : boolean {
+    create(user: IUser) : boolean {
+        console.log('create auth');
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
@@ -31,10 +21,5 @@ export class AuthService {
             .subscribe((result)=> console.log('post result', result));
         // TODO status
         return true;
-    }
-
-    private handleError(error: Response) {
-        console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
     }
 }

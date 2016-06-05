@@ -33,6 +33,7 @@ export class RegisterComponent extends BaseForm implements OnInit, OnActivate {
     constructor(private _navService: NavService,
                 private _authService: AuthService) {
         super();
+        this._restService = _authService;
         this.email = new Control('', Validators.compose([Validators.required, FormValidator.mailFormat()]));
         this.firstName = new Control('', Validators.compose([Validators.required, Validators.minLength(2)]));
         this.lastName = new Control('', Validators.compose([Validators.required, Validators.minLength(2)]));
@@ -48,14 +49,6 @@ export class RegisterComponent extends BaseForm implements OnInit, OnActivate {
         });
     }
 
-
-    _register(form: ControlGroup) :void {
-        this.submitAttempt = true;
-        console.log('%c register', 'color:green;' , form);
-        this._authService.register(form.value);
-        
-        
-    }
 
     ngOnInit() {
     }
