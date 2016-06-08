@@ -3,22 +3,30 @@ import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { IUser } from './../../body/auth/register.component';
 import { BaseHttpService } from './base-http.service';
+import { NotifyService } from './notify.service';
 
 @Injectable()
 export class AuthService extends BaseHttpService {
     private _connectionUrl = '/register-api';
 
-    constructor(private _http: Http) { 
+    constructor(private _http: Http,
+                private _notify: NotifyService) {
         super();
     }
 
-    create(user: IUser) : boolean {
+    create(user: IUser, successMsg) : boolean {
         console.log('create auth');
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
         this._http.post(this._connectionUrl, JSON.stringify(user), {headers: headers})
-            .subscribe((result)=> console.log('post result', result));
+            .subscribe(
+                (result)=> {
+                    this._notify.showSuccess(successMsg);
+                },
+                //TODO check erorrs
+                error =>  this.handleError(error)
+            );
         // TODO status
         return true;
     }

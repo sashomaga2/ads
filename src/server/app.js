@@ -19,19 +19,6 @@ app.use(express.static(__dirname + '/..'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-
-//app.get('/', function(req, res) {
-//    res.sendFile(path.resolve(__dirname + '/../index.html'));
-//});
-//
-//app.get('/ads', function(req, res) {
-//    res.sendFile(path.resolve(__dirname + '/../index.html'));
-//});
-//
-//app.get('/newAd', function(req, res) {
-//    res.sendFile(path.resolve(__dirname + '/../index.html'));
-//});
-////
 app.get('/ads-data', function(req, res) {
     var id = req.query.id;
 
@@ -76,17 +63,17 @@ app.post('/register-api', function(req, res) {
         } else if(existAlready) {
             result.error = "Email is already used!";
         } else {
-            var user = new UserModel({ email: reqBody.email }); 
+            var user = new UserModel({ email: reqBody.email });
             return user.save(function(err){
                 if(err) {
                     result.error = "DB Error!";
                 }
-                
+
                 res.json(result);
                 console.log('USER SAVED!!!');
             })
         }
-        
+
         res.json(result);
     });
 });

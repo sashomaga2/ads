@@ -26,7 +26,7 @@ export class DataService extends BaseHttpService {
             .catch(this.handleError);
     }
 
-    create(ad: IAd) : boolean {
+    create(ad: IAd, msg: string) : boolean {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
 

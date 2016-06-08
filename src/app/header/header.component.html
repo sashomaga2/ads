@@ -12,3 +12,10 @@
         <a [routerLink]="['./login']"><span class="glyphicon glyphicon-user"></span>My Profile</a>
     </div>
 </div>
+<div class="row" *ngIf="notificationInProgress">
+    <div class="panel-body">
+        <div class="alert alert-{{notificationType}} text-center">
+            {{notification}}
+        </div>
+    </div>
+</div>

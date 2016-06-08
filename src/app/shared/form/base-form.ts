@@ -7,6 +7,7 @@ export abstract class BaseForm {
     form: ControlGroup;
     protected _restService: IRestService;
     protected _builder: FormBuilder;
+    successMsg: string = '';
 
     constructor(){
         var injector = ReflectiveInjector.resolveAndCreate([
@@ -30,11 +31,10 @@ export abstract class BaseForm {
     send(form: ControlGroup) :void {
        this.submitAttempt = true;
     
-       if(form.valid) { //send over
+       //if(form.valid) { //TODO uncomment
            this.submitAttempt = false;
-           this._restService.create(form.value);
+           this._restService.create(form.value, this.successMsg);
            this._clearForm();
-       } else { //
-       }
+       //}
     }
 }

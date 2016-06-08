@@ -23,7 +23,6 @@ export interface IUser {
     directives: [ROUTER_DIRECTIVES]
 })
 export class RegisterComponent extends BaseForm implements OnInit, OnActivate {
-    //form: ControlGroup;
     email: Control;
     firstName: Control;
     lastName: Control;
@@ -49,6 +48,10 @@ export class RegisterComponent extends BaseForm implements OnInit, OnActivate {
         });
     }
 
+    send(form: ControlGroup) {
+        this.successMsg = `User: ${this.firstName.value} ${this.lastName.value} has been registered.`;
+        super.send(form);
+    }
 
     ngOnInit() {
     }

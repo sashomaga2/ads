@@ -3,7 +3,7 @@ import { ReflectiveInjector } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 export interface IRestService {
-    create(data: Object) :Boolean;  
+    create(data: Object, msg: string) : boolean;
 }
 
 export abstract class BaseHttpService implements IRestService {
@@ -11,7 +11,7 @@ export abstract class BaseHttpService implements IRestService {
     constructor() {
     }
 
-    abstract create(data: Object) : Boolean;
+    abstract create(data: Object, msg: string) : boolean;
 
     protected handleError(error: Response) {
         console.error(error);

@@ -11,6 +11,7 @@ import { RegisterComponent } from './body/auth/register.component';
 import { DataService } from './shared/services/data.service';
 import { NavService } from './shared/services/nav.service';
 import { AuthService } from './shared/services/auth.service';
+import { NotifyService } from './shared/services/notify.service';
 
 export const enum AppRoutes {Ads, NewAd, AdDetail, Login, Register};
 
@@ -20,7 +21,7 @@ export const enum AppRoutes {Ads, NewAd, AdDetail, Login, Register};
     templateUrl: 'ads-app.component.html',
     styleUrls: ['ads-app.component.css'],
     directives: [AdListComponent, HeaderComponent, ROUTER_DIRECTIVES],
-    providers: [HTTP_PROVIDERS, DataService, NavService, AuthService]
+    providers: [HTTP_PROVIDERS, DataService, NavService, AuthService, NotifyService]
 })
 @Routes([
     {path: '/ads',  component: AdListComponent},
