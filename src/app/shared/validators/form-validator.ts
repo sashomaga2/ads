@@ -1,13 +1,12 @@
 import { Control } from '@angular/common';
 import { ValidatorFn } from "@angular/common/src/forms/directives/validators";
+import { Config } from "../../config/config";
 
 export class FormValidator{
 
     static mailFormat(): ValidatorFn {
         return (control) => {
-            const EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
-
-            if (control.value.length <= 5 || !EMAIL_REGEXP.test(control.value)) {
+            if (control.value.length <= 5 || !Config.EMAIL_PATTERN.test(control.value)) {
                 return { "incorrectMailFormat": true };
             }
 

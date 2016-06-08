@@ -11,6 +11,7 @@
                     <div class="col-md-9">
                         <input type="text" id="email" class="form-control" placeholder="Email Address" ngControl="email">
                         <em *ngIf="email.hasError('required') && submitAttempt">Required</em>
+                        <em *ngIf="email.hasError('incorrectMailFormat') && submitAttempt && email.value.length">Must be valid email address</em>
                     </div>
                 </div>
                 <div class="form-group row" [ngClass]="{'has-error' : hasError('firstName') }">

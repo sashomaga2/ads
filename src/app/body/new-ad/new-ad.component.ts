@@ -3,6 +3,7 @@ import { FORM_DIRECTIVES, FormBuilder, Control, ControlGroup, Validators } from 
 import { IAd } from './../ad-list/ad/ad.component';
 import { DataService } from './../../shared/services/data.service';
 import { BaseForm } from './../../shared/form/base-form';
+import { NotifyService } from './../../shared/services/notify.service';
 
 @Component({
   moduleId: module.id,
@@ -14,12 +15,14 @@ export class NewAdComponent extends BaseForm implements OnInit {
     title: Control;
     text: Control;
     price: Control;
+    successMsg: string;
 
     @Output() insertAd: EventEmitter<IAd> =
         new EventEmitter<IAd>();
 
-    constructor(private _dataService: DataService) {
-        super();
+    constructor(private _dataService: DataService,
+                protected _notify: NotifyService) {
+        super(_notify);
         this._restService = _dataService;
         this.title = new Control('', Validators.compose([Validators.required, Validators.minLength(3)]));
         this.text = new Control('', Validators.compose([Validators.required, Validators.minLength(3)]));
@@ -30,6 +33,11 @@ export class NewAdComponent extends BaseForm implements OnInit {
             text: this.text,
             price: this.price
         });
+    }
+
+    send(form: ControlGroup) {
+        this.successMsg = `Ad ${this.title.value} saved successfully`;
+        super.send(form);
     }
 
     ngOnInit() {

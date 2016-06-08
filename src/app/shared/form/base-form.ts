@@ -1,6 +1,9 @@
 import { FormBuilder, ControlGroup, Control } from '@angular/common';
 import { ReflectiveInjector } from '@angular/core';
 import { IRestService } from './../services/base-http.service';
+import { NotifyService } from './../services/notify.service';
+import { Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 
 export abstract class BaseForm {
     submitAttempt: boolean = false;
@@ -9,7 +12,7 @@ export abstract class BaseForm {
     protected _builder: FormBuilder;
     successMsg: string = '';
 
-    constructor(){
+    constructor(protected _notify: NotifyService){
         var injector = ReflectiveInjector.resolveAndCreate([
             FormBuilder
         ]);
@@ -30,11 +33,29 @@ export abstract class BaseForm {
 
     send(form: ControlGroup) :void {
        this.submitAttempt = true;
-    
-       //if(form.valid) { //TODO uncomment
-           this.submitAttempt = false;
-           this._restService.create(form.value, this.successMsg);
-           this._clearForm();
-       //}
+
+        //if(form.valid) { //TODO uncomment
+            this.submitAttempt = false;
+            this._restService.create(form.value)
+                .subscribe(
+                    (response: Response) => {
+                        let result = response.json();
+                        if(result.status){
+                            this._notify.showSuccessMsg(this.successMsg);
+                        }else{
+                            this._notify.showErrorMsg(result.error);
+                        }
+
+                    },
+                    //TODO check erorrs
+                    error =>  this.handleError(error)
+            );
+            this._clearForm();
+        //}
+    }
+
+    protected handleError(error: Response) {
+        console.error(error);
+        return Observable.throw(error.json().error || 'Server error');
     }
 }

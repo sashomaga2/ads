@@ -6,14 +6,8 @@ import { AuthService } from './../../shared/services/auth.service';
 import { AppRoutes } from './../../ads-app.component';
 import { FormValidator } from './../../shared/validators/form-validator';
 import { BaseForm } from './../../shared/form/base-form';
-
-export interface IUser {
-    _id?: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    password: string;
-}
+import { Config } from "../../config/config";
+import { NotifyService } from './../../shared/services/notify.service';
 
 @Component({
     moduleId: module.id,
@@ -30,13 +24,14 @@ export class RegisterComponent extends BaseForm implements OnInit, OnActivate {
     retypePassword: Control;
 
     constructor(private _navService: NavService,
-                private _authService: AuthService) {
-        super();
+                private _authService: AuthService,
+                protected _notify: NotifyService) {
+        super(_notify);
         this._restService = _authService;
         this.email = new Control('', Validators.compose([Validators.required, FormValidator.mailFormat()]));
-        this.firstName = new Control('', Validators.compose([Validators.required, Validators.minLength(2)]));
-        this.lastName = new Control('', Validators.compose([Validators.required, Validators.minLength(2)]));
-        this.password = new Control('', Validators.compose([Validators.required, Validators.minLength(6)]));
+        this.firstName = new Control('', Validators.compose([Validators.required, Validators.minLength(Config.MIN_NAME_LENGTH)]));
+        this.lastName = new Control('', Validators.compose([Validators.required, Validators.minLength(Config.MIN_NAME_LENGTH)]));
+        this.password = new Control('', Validators.compose([Validators.required, Validators.minLength(Config.MIN_PASSWORD_LENGTH)]));
         this.retypePassword = new Control('', Validators.compose([Validators.required, FormValidator.passwordEqual(this.password)]));
 
         this.form = this._builder.group({

@@ -26,13 +26,13 @@ export class DataService extends BaseHttpService {
             .catch(this.handleError);
     }
 
-    create(ad: IAd, msg: string) : boolean {
+    create(ad: IAd) : Observable<Response> {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        this._http.post(this._adsDataUrl, JSON.stringify(ad), {headers: headers})
-                            .subscribe((result)=> console.log('post result', result));
+        return this._http.post(this._adsDataUrl, JSON.stringify(ad), {headers: headers});
+                            //.subscribe((result)=> console.log('post result', result));
         // TODO status
-        return true;
+        //return true;
     }
 }

@@ -40,7 +40,7 @@ app.post('/ads-data', function(req, res) {
     ad.save();
     //TODO add save status
 
-    res.send('work');
+    res.json({ status: STATUS.SUCCESS });
 });
 
 app.post('/register-api', function(req, res) {
@@ -67,6 +67,34 @@ app.post('/register-api', function(req, res) {
 
         res.json(result);
     });
+});
+
+app.post('/login-api', function(req, res) {
+    var reqBody = req.body,
+        result = { status: STATUS.FAIL };
+
+    console.log('login', reqBody);
+
+    //UserModel.findOne({ email: reqBody.email }, function(err, existAlready){
+    //    if(err){
+    //        result.error = "DB Error!";
+    //    } else if(existAlready) {
+    //        result.error = "Email is already used!";
+    //    } else {
+    //        var user = new UserModel({ email: reqBody.email });
+    //        return user.save(function(err){
+    //            if(err) {
+    //                result.error = "DB Error!";
+    //            } else {
+    //                result.status = STATUS.SUCCESS;
+    //            }
+    //
+    //            res.json(result);
+    //        })
+    //    }
+    //
+    //    res.json(result);
+    //});
 });
 
 app.get('*', function(req, res, next) {
