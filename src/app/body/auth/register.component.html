@@ -9,13 +9,12 @@
                 <div class="form-group row" [ngClass]="{'has-error' : hasError('email') }">
                     <label for="email" class="col-md-3 form-control-label">Email</label>
                     <div class="col-md-9">
-                        <input type="text" id="email" class="form-control" name="email" placeholder="Email Address" ngControl="email">
+                        <input type="text" id="email" class="form-control" placeholder="Email Address" ngControl="email">
                         <em *ngIf="email.hasError('required') && submitAttempt">Required</em>
                     </div>
                 </div>
-
                 <div class="form-group row" [ngClass]="{'has-error' : hasError('firstName') }">
-                    <label for="firstname" class="col-md-3 form-control-label">First Name</label>
+                    <label class="col-md-3 form-control-label">First Name</label>
                     <div class="col-md-9">
                         <input type="text" class="form-control" name="firstname" placeholder="First Name" ngControl="firstName">
                         <em *ngIf="firstName.hasError('required') && submitAttempt">Required</em>
@@ -24,7 +23,7 @@
                     </div>
                 </div>
                 <div class="form-group row" [ngClass]="{'has-error' : hasError('lastName') }">
-                    <label for="lastname" class="col-md-3 form-control-label">Last Name</label>
+                    <label class="col-md-3 form-control-label">Last Name</label>
                     <div class="col-md-9">
                         <input type="text" class="form-control" name="lastname" placeholder="Last Name" ngControl="lastName">
                         <em *ngIf="lastName.hasError('required') && submitAttempt">Required</em>
@@ -33,7 +32,7 @@
                     </div>
                 </div>
                 <div class="form-group row" [ngClass]="{'has-error' : hasError('password') }">
-                    <label for="password" class="col-md-3 form-control-label">Password</label>
+                    <label class="col-md-3 form-control-label">Password</label>
                     <div class="col-md-9">
                         <input type="password" class="form-control" name="passwd" placeholder="Password" ngControl="password">
                         <em *ngIf="password.hasError('required') && submitAttempt">Required</em>
@@ -41,34 +40,25 @@
                         <em *ngIf="password.hasError('maxlength') && submitAttempt">Must be up to 20 characters</em>
                     </div>
                 </div>
-
                 <div class="form-group row" [ngClass]="{'has-error' : hasError('retypePassword') }">
-                    <label for="icode" class="col-md-3 form-control-label">Retype Password</label>
+                    <label class="col-md-3 form-control-label">Retype Password</label>
                     <div class="col-md-9">
-                        <input type="password" class="form-control" name="passwd" placeholder="Retype Password" ngControl="retypePassword">
+                        <input type="password" class="form-control" placeholder="Retype Password" ngControl="retypePassword">
                         <em *ngIf="retypePassword.hasError('required') && submitAttempt">Required</em>
                         <em *ngIf="retypePassword.hasError('minlength') && submitAttempt">Passwords must match</em>
                     </div>
                 </div>
-
                 <div class="form-group row">
-                    <!-- Button -->
                     <div class="col-md-offset-3 col-md-9">
                         <button type="submit" class="btn btn-info"><i class="icon-hand-right"></i> Sign Up</button>
                         <span style="margin-left:8px;">or</span>
                     </div>
                 </div>
-
                 <div style="border-top: 1px solid #999; padding-top:20px"  class="form-group">
-
                     <div class="col-md-offset-3 col-md-9">
                         <button id="btn-fbsignup" type="button" class="btn btn-primary"><i class="icon-facebook"></i>   Sign Up with Facebook</button>
                     </div>
-
                 </div>
-
-
-
             </form>
         </div>
     </div>
