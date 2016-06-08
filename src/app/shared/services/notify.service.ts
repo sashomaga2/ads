@@ -19,12 +19,11 @@ export class NotifyService {
 
     constructor() { }
 
-    showSuccess(msg: string){
-        console.log('%c notify service next', 'color: green');
-        this._notify.next({ msg: msg, type: MSG_TYPE.SUCCESS, MSG_DELAY_TIME});
+    showSuccessMsg(msg: string){
+        this._notify.next({ msg: msg, type: MSG_TYPE.SUCCESS, delay: MSG_DELAY_TIME});
     }
 
-    showError(msg: string) {
-        this._notify.next({ msg: msg, type: MSG_TYPE.FAIL, MSG_DELAY_TIME});
+    showErrorMsg(msg: string) {
+        this._notify.next({ msg: msg, type: MSG_TYPE.FAIL, delay: MSG_DELAY_TIME});
     }
 }

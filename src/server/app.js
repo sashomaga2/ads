@@ -44,20 +44,10 @@ app.post('/ads-data', function(req, res) {
 });
 
 app.post('/register-api', function(req, res) {
-    var reqBody = req.body;
-    //ad = new AdModel({ title: reqBody.title, text: reqBody.text, price: Number(reqBody.price) });
-
-    /*
-     email: String,
-     firstName: String,
-     lastName: String,
-     password: String
-    * */
-
-    var result = { status: STATUS.SUCCESS };
+    var reqBody = req.body,
+        result = { status: STATUS.FAIL };
 
     UserModel.findOne({ email: reqBody.email }, function(err, existAlready){
-        console.log('findOne', existAlready);
         if(err){
             result.error = "DB Error!";
         } else if(existAlready) {
@@ -67,10 +57,11 @@ app.post('/register-api', function(req, res) {
             return user.save(function(err){
                 if(err) {
                     result.error = "DB Error!";
+                } else {
+                    result.status = STATUS.SUCCESS;
                 }
 
                 res.json(result);
-                console.log('USER SAVED!!!');
             })
         }
 

@@ -21,8 +21,14 @@ export class AuthService extends BaseHttpService {
 
         this._http.post(this._connectionUrl, JSON.stringify(user), {headers: headers})
             .subscribe(
-                (result)=> {
-                    this._notify.showSuccess(successMsg);
+                (response: Response) => {
+                    let result = response.json();
+                    if(result.status){
+                        this._notify.showSuccessMsg(successMsg);    
+                    }else{
+                        this._notify.showErrorMsg(result.error);
+                    }
+                    
                 },
                 //TODO check erorrs
                 error =>  this.handleError(error)

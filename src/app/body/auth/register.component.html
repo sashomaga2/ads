@@ -1,4 +1,4 @@
-<div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
     <div class="panel panel-info">
         <div class="panel-heading">
             <div class="panel-title">Sign Up</div>
@@ -6,11 +6,6 @@
         </div>
         <div class="panel-body" >
             <form class="form-horizontal" role="form" [ngFormModel]="form" (ngSubmit)="send(form)">
-
-                <div id="signupalert" style="display:none" class="alert alert-danger">
-                    <p>Error:</p>
-                    <span></span>
-                </div>
                 <div class="form-group row" [ngClass]="{'has-error' : hasError('email') }">
                     <label for="email" class="col-md-3 form-control-label">Email</label>
                     <div class="col-md-9">
@@ -71,9 +66,6 @@
                     </div>
 
                 </div>
-
-
-
             </form>
         </div>
     </div>

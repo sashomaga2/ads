@@ -47,6 +47,7 @@ export class HeaderComponent implements OnInit {
                 this.notificationType = n.type;
                 this.notificationInProgress = true;
                 setTimeout(()=> {
+                    console.log('%c notificationInProgress = false', 'color: brown');
                     this.notificationInProgress = false;
                 }, 5000);
             });

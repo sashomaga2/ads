@@ -1,9 +1,9 @@
 <div class="panel panel-primary">
     <div class="panel-heading">{{title}}</div>
-    <div class="panel-body">
+    <div class="panel-body" style="padding-bottom: 0;">
         <app-header></app-header>
     </div>
-    <div class="panel-body">
+    <div class="panel-body" style="padding-top: 0;>
         <router-outlet (insertAd)="OnInsertAdd($event)"></router-outlet>
     </div>
 </div>
