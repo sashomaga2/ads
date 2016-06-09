@@ -1,26 +1,38 @@
 /**
  * Temporaty put in src until https://github.com/angular/angular-cli/issues/677 is resolved
  */
-const express = require('express');
-const bodyParser = require('body-parser');
 
-const app = express();
+var express = require('express');
+var bodyParser = require('body-parser');
+/* Auth */
+var cookieParser = require('cookie-parser');
+var passport = require('passport');
+var session = require('express-session');
 
+var app = express();
 const port = 3000;
-
-const path = require('path');
-
-const AdModel = require('./db').AdModel;
-const UserModel = require('./db').UserModel;
+var path = require('path');
+/* DB */
+var AdModel = require('./db').AdModel;
+var UserModel = require('./db').UserModel;
 const STATUS = { FAIL: 0, SUCCESS: 1 };
 
+/* Middlewares */
 app.use(express.static(__dirname + '/..'));
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(cookieParser());
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true }));
+require('./passport')(app);
+
 
 app.get('/ads-data', function(req, res) {
+
+    console.log('get /ads-data');
+
     var id = req.query.id;
+
+
 
     AdModel.find(id ? { _id: id } : {}, function(err, ads) {
         if (err) {
@@ -70,31 +82,10 @@ app.post('/register-api', function(req, res) {
 });
 
 app.post('/login-api', function(req, res) {
-    var reqBody = req.body,
-        result = { status: STATUS.FAIL };
-
-    console.log('login', reqBody);
-
-    //UserModel.findOne({ email: reqBody.email }, function(err, existAlready){
-    //    if(err){
-    //        result.error = "DB Error!";
-    //    } else if(existAlready) {
-    //        result.error = "Email is already used!";
-    //    } else {
-    //        var user = new UserModel({ email: reqBody.email });
-    //        return user.save(function(err){
-    //            if(err) {
-    //                result.error = "DB Error!";
-    //            } else {
-    //                result.status = STATUS.SUCCESS;
-    //            }
-    //
-    //            res.json(result);
-    //        })
-    //    }
-    //
-    //    res.json(result);
-    //});
+    req.login(req.body, function(){
+        console.log('Succesfully loged in!');
+        res.json({ status: STATUS.SUCCESS, data: req.user});
+    });
 });
 
 app.get('*', function(req, res, next) {
