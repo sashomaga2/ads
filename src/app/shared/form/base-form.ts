@@ -1,8 +1,7 @@
 import { FormBuilder, ControlGroup, Control } from '@angular/common';
 import { ReflectiveInjector } from '@angular/core';
-import { IRestService } from './../services/base-http.service';
+import { IRestService, IResponse, Status } from './../services/base-http.service';
 import { NotifyService } from './../services/notify.service';
-import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 export abstract class BaseForm {
@@ -38,12 +37,13 @@ export abstract class BaseForm {
             this.submitAttempt = false;
             this._restService.create(form.value)
                 .subscribe(
-                    (response: Response) => {
-                        let result = response.json();
-                        if(result.status){
+                    (response: IResponse) => {
+                        console.log('response:', response);
+                        //let result = response.json();
+                        if(response.status === Status.SUCCESS){
                             this._notify.showSuccessMsg(this.successMsg);
                         }else{
-                            this._notify.showErrorMsg(result.error);
+                            this._notify.showErrorMsg(response.error);
                         }
 
                     },
@@ -54,7 +54,7 @@ export abstract class BaseForm {
         //}
     }
 
-    protected handleError(error: Response) {
+    protected handleError(error) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
     }

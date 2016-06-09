@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { BaseHttpService } from './base-http.service';
+import { BaseHttpService, IResponse } from './base-http.service';
 import { NotifyService } from './notify.service';
 
 export interface IUser {
@@ -39,7 +39,7 @@ export class AuthService extends BaseHttpService {
         return this._loggedIn;
     }
 
-    login(user: User) : Observable<Response> {
+    login(user: User) : Observable<IResponse> {
         console.log('login ............');
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -48,10 +48,11 @@ export class AuthService extends BaseHttpService {
     }
 
     /* REGISTER */
-    create(user: IUser) : Observable<Response> {
+    create(user: IUser) : Observable<IResponse> {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        return this._http.post(this._connectionUrl, JSON.stringify(user), {headers: headers});
+        return this._http.post(this._connectionUrl, JSON.stringify(user), {headers: headers})
+            .map((response: Response) => response.json());
     }
 }

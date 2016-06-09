@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { IAd } from '../../body/ad-list/ad/ad.component';
-import { BaseHttpService } from './base-http.service';
+import { BaseHttpService, IResponse } from './base-http.service';
 
 @Injectable()
 export class DataService extends BaseHttpService {
@@ -26,13 +26,12 @@ export class DataService extends BaseHttpService {
             .catch(this.handleError);
     }
 
-    create(ad: IAd) : Observable<Response> {
+    create(ad: IAd) : Observable<IResponse> {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        return this._http.post(this._adsDataUrl, JSON.stringify(ad), {headers: headers});
-                            //.subscribe((result)=> console.log('post result', result));
-        // TODO status
-        //return true;
+        return this._http.post(this._adsDataUrl, JSON.stringify(ad), {headers: headers})
+                                                .map((response: Response) => response.json());
+        
     }
 }
