@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FORM_DIRECTIVES, FormBuilder, Control, ControlGroup, Validators } from '@angular/common';
 import { IAd } from './../ad-list/ad/ad.component';
 import { DataService } from './../../shared/services/data.service';
+import { AuthService } from './../../shared/services/auth.service';
 import { BaseForm } from './../../shared/form/base-form';
 import { NotifyService } from './../../shared/services/notify.service';
 
@@ -21,7 +22,8 @@ export class NewAdComponent extends BaseForm implements OnInit {
         new EventEmitter<IAd>();
 
     constructor(private _dataService: DataService,
-                protected _notify: NotifyService) {
+                protected _notify: NotifyService,
+                private _authService: AuthService) {
         super(_notify);
         this._restService = _dataService;
         this.title = new Control('', Validators.compose([Validators.required, Validators.minLength(3)]));
@@ -37,6 +39,9 @@ export class NewAdComponent extends BaseForm implements OnInit {
 
     send(form: ControlGroup) {
         this.successMsg = `Ad ${this.title.value} saved successfully`;
+        if(this._authService.isLoggedIn()){
+            Object.assign(form.value, { userId: this._authService.getLoggedUser()._id } );
+        }
         super.send(form);
     }
 

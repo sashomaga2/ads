@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import {Http, Response, Headers, URLSearchParams} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { IAd } from '../../body/ad-list/ad/ad.component';
 import { BaseHttpService, IResponse } from './base-http.service';
@@ -12,8 +12,14 @@ export class DataService extends BaseHttpService {
         super();
      }
 
-    getAds(): Observable<IAd[]> {
-        return this._http.get(this._adsDataUrl)
+    getAds(userId?: string): Observable<IAd[]> {
+        console.log('data.service getAds', userId);
+
+        //var adsDataUrl = this._adsDataUrl;
+        //console.log('url', userId ? adsDataUrl + `?userId=${userId}` : adsDataUrl);
+        var params: URLSearchParams = new URLSearchParams();
+        params.set('userId', userId);
+        return this._http.get(this._adsDataUrl, userId ? { search: params } : {} )
             .map((response: Response) => <IAd[]> response.json())
             .do(data => console.log('getAds: ' +  JSON.stringify(data)))
             .catch(this.handleError);

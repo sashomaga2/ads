@@ -3,9 +3,12 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 
 export interface IAd {
     _id: string;
+    userId?: string,
     title: string;
     text: string;
     price: number;
+    //created: Date;
+    //duration: 3 months 
 }
 
 @Component({

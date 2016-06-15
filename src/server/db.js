@@ -8,6 +8,7 @@ db.once('open', function() {
 });
 
 var adSchema = new mongoose.Schema({
+    userId: String,
     title: String,
     text: String,
     price: Number

@@ -9,7 +9,7 @@
             <span class="glyphicon glyphicon-arrow-left"></span>
             <span>Back</span>
         </a>
-        <a [routerLink]="['./login']"><span class="glyphicon glyphicon-user"></span>My Profile</a>
+        <a [routerLink]="profileName ? ['./profile'] : ['./login']"><span class="glyphicon glyphicon-user"></span>{{profileName ? profileName : 'My Profile'}}</a>
     </div>
 </div>
 <div class="row" [style.visibility]="notificationInProgress ? 'visible': 'hidden'">

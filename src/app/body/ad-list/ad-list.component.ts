@@ -5,8 +5,8 @@ import { DataService } from '../../shared/services/data.service';
 @Component({
     moduleId: module.id,
     selector: 'app-list',
-    templateUrl: 'list.component.html',
-    styleUrls: ['list.component.css'],
+    templateUrl: 'ad-list.component.html',
+    styleUrls: ['ad-list.component.css'],
     directives: [AdComponent]
 })
 export class AdListComponent implements OnInit {

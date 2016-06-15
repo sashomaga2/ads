@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OnActivate, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
+import { OnActivate, ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { Response } from '@angular/http';
 import { NavService } from './../../shared/services/nav.service';
 import { AuthService, User } from './../../shared/services/auth.service';
@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit, OnActivate {
     submitAttempt: boolean = false;
 
     constructor(private _navService: NavService,
-                private _authService: AuthService) {
+                private _authService: AuthService,
+                private _router: Router) {
     }
 
     isValid() :boolean {
@@ -32,9 +33,9 @@ export class LoginComponent implements OnInit, OnActivate {
             this._authService.login(this.user)
                 .subscribe(
                     (response: Response) => {
-                        let result = response.json();
-                        if(result.status){
+                        if(response.status){
                             console.log('success login');
+                            this._router.navigate(['/profile']);
                             //this._notify.showSuccessMsg(successMsg);
                         }else{
                             console.log('fail login');
@@ -46,7 +47,6 @@ export class LoginComponent implements OnInit, OnActivate {
                     //error => console.error(error)
                 );
         }
-        console.log('send....');
     }
 
     validateEmail(): boolean {

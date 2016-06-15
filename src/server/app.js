@@ -27,17 +27,28 @@ require('./passport')(app);
 
 
 app.get('/ads-data', function(req, res) {
-
     console.log('get /ads-data');
 
     var id = req.query.id;
+    var userId = req.query.userId;
 
+    console.log('userId', userId);
 
+    var query = {};
 
-    AdModel.find(id ? { _id: id } : {}, function(err, ads) {
+    if(id) {
+        query._id = id;
+    }
+
+    if(userId) {
+        query.userId = userId;
+    }
+
+    AdModel.find(query, function(err, ads) {
         if (err) {
             return console.error(err);
         }
+        console.log('ads', ads);
         res.json(ads);
     });
 });
@@ -45,7 +56,7 @@ app.get('/ads-data', function(req, res) {
 app.post('/ads-data', function(req, res) {
     //TODO add server side validation
     var reqBody = req.body,
-        ad = new AdModel({ title: reqBody.title, text: reqBody.text, price: Number(reqBody.price) });
+        ad = new AdModel({ userId: reqBody.userId, title: reqBody.title, text: reqBody.text, price: Number(reqBody.price) });
 
     console.log('reqBody', reqBody);
 
@@ -70,7 +81,7 @@ app.post('/register-api', function(req, res) {
                 if(err) {
                     result.error = "DB Error!";
                 } else {
-                    result.status = STATUS.SUCCESS;
+                    result.status = STATUS.SUCCESS
                 }
 
                 res.json(result);
@@ -84,7 +95,7 @@ app.post('/register-api', function(req, res) {
 app.post('/login-api', function(req, res) {
     req.login(req.body, function(){
         console.log('Succesfully loged in!');
-        res.json({ status: STATUS.SUCCESS, data: req.user});
+        res.json({ status: STATUS.SUCCESS, data: req.body});
     });
 });
 

@@ -3,6 +3,8 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { NavService } from './../shared/services/nav.service';
 import { NotifyService, INotify } from './../shared/services/notify.service';
+import { AuthService, User } from './../shared/services/auth.service';
+import { AppRoutes } from './../ads-app.component';
 
 @Component({
     moduleId: module.id,
@@ -19,12 +21,13 @@ export class HeaderComponent implements OnInit {
     notification: string;
     notificationType: string;
     notificationInProgress: boolean = false;
+    profileName: string;
 
     subscription: Subscription;
 
     constructor(private _navService: NavService,
-                private _notifyService: NotifyService) {
-
+                private _notifyService: NotifyService,
+                private _authService: AuthService) {
     }
 
     newAdClicked() :void {
@@ -38,7 +41,12 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
         this.subscription = this._navService.selectedRoute$
             .subscribe(item => {
+                console.log('item', item);
                 this.isMain = false;
+                if(item === AppRoutes.Profile) {
+                    let user: User = this._authService.getLoggedUser();
+                    this.profileName = `${user.firstName} ${user.lastName}`;
+                }
             });
 
         this.subscription = this._notifyService.notify$

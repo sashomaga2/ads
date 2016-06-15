@@ -8,12 +8,13 @@ import { NewAdComponent } from './body/new-ad/new-ad.component';
 import { AdDetailComponent } from './body/ad-detail/ad-detail.component';
 import { LoginComponent } from './body/auth/login.component';
 import { RegisterComponent } from './body/auth/register.component';
+import { ProfileComponent } from './body/profile/profile.component';
 import { DataService } from './shared/services/data.service';
 import { NavService } from './shared/services/nav.service';
 import { AuthService } from './shared/services/auth.service';
 import { NotifyService } from './shared/services/notify.service';
 
-export const enum AppRoutes {Ads, NewAd, AdDetail, Login, Register};
+export const enum AppRoutes {Ads, NewAd, AdDetail, Login, Register, Profile};
 
 @Component({
     moduleId: module.id,
@@ -29,6 +30,7 @@ export const enum AppRoutes {Ads, NewAd, AdDetail, Login, Register};
     {path: '/adDetail/:id',  component: AdDetailComponent},
     {path: '/login',  component: LoginComponent},
     {path: '/register',  component: RegisterComponent},
+    {path: '/profile',  component: ProfileComponent},
     {path: '*',  component: AdListComponent},
     //TODO fix
     {path: '/',  component: AdListComponent},
@@ -40,8 +42,8 @@ export class AdsAppComponent implements OnInit, OnActivate {
 
     constructor(private _router: Router) {
         this._router.changes.subscribe((...data)=>{
-            console.log('data', data);
-            console.log('this.newAd', this.newAd);
+            // console.log('data', data);
+            // console.log('this.newAd', this.newAd);
             if(this.newAd){
                 this.newAd.insertAd.subscribe((ad)=>console.log('subscribe', ad));
             }
