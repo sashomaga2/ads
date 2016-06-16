@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true }));
 require('./passport')(app);
 
-/* routes */
+/* Routes */
 require('./router')(app);
 
 app.listen(port, function(err){

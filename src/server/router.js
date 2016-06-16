@@ -1,9 +1,8 @@
 
 var AdModel = require('./db').AdModel,
     UserModel = require('./db').UserModel,
-    path = require('path');
-
-const STATUS = { FAIL: 0, SUCCESS: 1 };
+    path = require('path'),
+    constants = require('./constants');
 
 module.exports = function (app) {
     app.get('/ads-data', function(req, res) {
@@ -38,12 +37,12 @@ module.exports = function (app) {
         ad.save();
         //TODO add save status
 
-        res.json({ status: STATUS.SUCCESS });
+        res.json({ status: constants.STATUS_SUCCESS });
     });
 
     app.post('/register-api', function(req, res) {
         var reqBody = req.body,
-            result = { status: STATUS.FAIL };
+            result = { status: constants.STATUS_FAIL };
 
         UserModel.findOne({ email: reqBody.email }, function(err, existAlready){
             if(err){
@@ -56,7 +55,7 @@ module.exports = function (app) {
                     if(err) {
                         result.error = "DB Error!";
                     } else {
-                        result.status = STATUS.SUCCESS
+                        result.status = constants.STATUS_SUCCESS
                     }
 
                     res.json(result);
@@ -70,7 +69,7 @@ module.exports = function (app) {
     app.post('/login-api', function(req, res) {
         req.login(req.body, function(){
             console.log('Succesfully loged in!');
-            res.json({ status: STATUS.SUCCESS, data: req.body});
+            res.json({ status: constants.STATUS_SUCCESS, data: req.body});
         });
     });
 
