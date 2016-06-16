@@ -13,12 +13,9 @@ export class DataService extends BaseHttpService {
      }
 
     getAds(userId?: string): Observable<IAd[]> {
-        console.log('data.service getAds', userId);
-
-        //var adsDataUrl = this._adsDataUrl;
-        //console.log('url', userId ? adsDataUrl + `?userId=${userId}` : adsDataUrl);
         var params: URLSearchParams = new URLSearchParams();
         params.set('userId', userId);
+
         return this._http.get(this._adsDataUrl, userId ? { search: params } : {} )
             .map((response: Response) => <IAd[]> response.json())
             .do(data => console.log('getAds: ' +  JSON.stringify(data)))
