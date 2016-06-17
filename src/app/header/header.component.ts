@@ -43,11 +43,17 @@ export class HeaderComponent implements OnInit {
             .subscribe(item => {
                 console.log('item', item);
                 this.isMain = false;
-                if(item === AppRoutes.Profile) {
-                    let user: User = this._authService.getLoggedUser();
+            });
+
+        this.subscription = this._authService.loginStatus$
+            .subscribe(status => {
+                // TODO hack fix
+                if(typeof status === 'boolean') {
+                    let user:User = this._authService.getLoggedUser();
                     this.profileName = `${user.firstName} ${user.lastName}`;
                 }
             });
+
 
         this.subscription = this._notifyService.notify$
             .subscribe((n: INotify) => {

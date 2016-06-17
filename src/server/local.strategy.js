@@ -8,10 +8,12 @@ module.exports = function() {
         passwordField: 'password'
     }, function(username, password, done) {
         //TODO check username and password from DB
+        console.log('checking user name *************', username);
         var user = {
             username: username,
             password: password
         };
+
         done(null, user);
     }));
 };

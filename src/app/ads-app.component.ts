@@ -28,8 +28,11 @@ export const enum AppRoutes {Ads, NewAd, AdDetail, Login, Register, Profile};
     {path: '/ads',  component: AdListComponent},
     {path: '/newAd',  component: NewAdComponent},
     {path: '/adDetail/:id',  component: AdDetailComponent},
+    //TODO use CanActivate 
     {path: '/login',  component: LoginComponent},
+    //TODO use CanActivate
     {path: '/register',  component: RegisterComponent},
+    //TODO use CanActivate
     {path: '/profile',  component: ProfileComponent},
     {path: '*',  component: AdListComponent},
     //TODO fix
@@ -40,7 +43,8 @@ export class AdsAppComponent implements OnInit, OnActivate {
 
     @ContentChild (NewAdComponent) newAd: NewAdComponent;
 
-    constructor(private _router: Router) {
+    constructor(private _router: Router,
+                private _authService: AuthService) {
         this._router.changes.subscribe((...data)=>{
             // console.log('data', data);
             // console.log('this.newAd', this.newAd);
@@ -63,6 +67,10 @@ export class AdsAppComponent implements OnInit, OnActivate {
 
     ngOnInit() {
         //this._router.navigate(['/ads']);
+        this._authService.checkLogin().subscribe(
+            item => { console.log('Login response:', item) },
+            error =>  { console.error(error); }
+        );
     }
 
     OnInsertAdd(ad) {

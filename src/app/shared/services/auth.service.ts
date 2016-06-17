@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { BaseHttpService, IResponse } from './base-http.service';
 import { NotifyService } from './notify.service';
+
 
 export interface IUser {
     email: string;
@@ -27,13 +29,41 @@ export class AuthService extends BaseHttpService {
     private _loggedIn: boolean = false;
     private _user: User;
 
+    // Observable source
+    private _loginStatus = new BehaviorSubject<boolean>(); //trigger event
+    // Observable stream
+    loginStatus$ = this._loginStatus.asObservable();
+
     constructor(private _http: Http,
                 private _notify: NotifyService) {
         super();
     }
 
+
+
     //TODO implement
     logout() {
+    }
+
+    _setLoginStatus(isLogged: boolean) : void {
+        this._loggedIn = isLogged;
+        this._loginStatus.next(isLogged);
+    }
+
+    _initLoginStatus() {
+
+    }
+    
+    checkLogin(): Observable<IResponse> {
+        console.log('check loggin!!!');
+        return this._http.get('/login-check')
+            .map((response: Response) => response.json())
+            .do((response: IResponse) =>  {
+                if(response.status) {
+                    this._user = new User('12345', 'sas@abv.bg', '', 'Sasho', 'Marinov');
+                    this._setLoginStatus(true);
+                }
+            });
     }
 
     isLoggedIn() :boolean {
@@ -45,7 +75,6 @@ export class AuthService extends BaseHttpService {
     }
 
     login(user: User) : Observable<IResponse> {
-        console.log('login ............');
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
@@ -53,8 +82,8 @@ export class AuthService extends BaseHttpService {
             .map((response: Response) => response.json())
             .do((response: IResponse) =>  {
                 if(response.status) {
-                    this._loggedIn = true;
                     this._user = new User('12345', 'sas@abv.bg', '', 'Sasho', 'Marinov');
+                    this._setLoginStatus(true);
                 }
             });
     }
