@@ -30,7 +30,7 @@ export class AuthService extends BaseHttpService {
     private _user: User;
 
     // Observable source
-    private _loginStatus = new BehaviorSubject<boolean>(); //trigger event
+    private _loginStatus = new BehaviorSubject<boolean>(false); //trigger event
     // Observable stream
     loginStatus$ = this._loginStatus.asObservable();
 

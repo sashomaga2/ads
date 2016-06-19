@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { OnActivate, ROUTER_DIRECTIVES } from '@angular/router';
-import { FORM_DIRECTIVES, FormBuilder, Control, ControlGroup, Validators } from '@angular/common';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
+import { FORM_DIRECTIVES, FormBuilder, Control, ControlGroup, Validators } from '@angular/common/src/forms-deprecated';
 import { NavService } from './../../shared/services/nav.service';
 import { AuthService } from './../../shared/services/auth.service';
 import { AppRoutes } from './../../ads-app.component';
@@ -16,16 +16,19 @@ import { NotifyService } from './../../shared/services/notify.service';
     //styleUrls: ['login.component.css']
     directives: [ROUTER_DIRECTIVES]
 })
-export class RegisterComponent extends BaseForm implements OnInit, OnActivate {
+export class RegisterComponent extends BaseForm implements OnInit {
     email: Control;
     firstName: Control;
     lastName: Control;
     password: Control;
     retypePassword: Control;
 
+    private sub: any; 
+
     constructor(private _navService: NavService,
                 private _authService: AuthService,
-                protected _notify: NotifyService) {
+                protected _notify: NotifyService,
+                private _router: Router) {
         super(_notify);
         this._restService = _authService;
         this.email = new Control('', Validators.compose([Validators.required, FormValidator.mailFormat()]));
@@ -49,9 +52,15 @@ export class RegisterComponent extends BaseForm implements OnInit, OnActivate {
     }
 
     ngOnInit() {
+        this.sub = this._router
+            .routerState
+            .queryParams
+            .subscribe(params => {
+                 this._navService.changedRoute(AppRoutes.Register);
+            });
     }
 
-    routerOnActivate() {
-        this._navService.changedRoute(AppRoutes.Register);
-    }
+    // routerOnActivate() {
+    //     this._navService.changedRoute(AppRoutes.Register);
+    // }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OnActivate, ROUTER_DIRECTIVES, Router } from '@angular/router';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { Response } from '@angular/http';
 import { NavService } from './../../shared/services/nav.service';
 import { AuthService, User } from './../../shared/services/auth.service';
@@ -14,9 +14,11 @@ import { Config } from "./../../config/config";
     //styleUrls: ['login.component.css']
     directives: [ROUTER_DIRECTIVES]
 })
-export class LoginComponent implements OnInit, OnActivate {
+export class LoginComponent implements OnInit {
     user: User = new User();
     submitAttempt: boolean = false;
+
+    private sub: any;
 
     constructor(private _navService: NavService,
                 private _authService: AuthService,
@@ -54,9 +56,15 @@ export class LoginComponent implements OnInit, OnActivate {
     }
 
     ngOnInit() {
+        this.sub = this._router
+            .routerState
+            .queryParams
+            .subscribe(params => {
+                 this._navService.changedRoute(AppRoutes.Login);
+            });
     }
 
-    routerOnActivate() {
-        this._navService.changedRoute(AppRoutes.Login);
-    }
+    // routerOnActivate() {
+    //     this._navService.changedRoute(AppRoutes.Login);
+    // }
 }

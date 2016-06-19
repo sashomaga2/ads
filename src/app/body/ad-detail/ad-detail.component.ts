@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OnActivate, RouteSegment } from '@angular/router';
+import { Router } from '@angular/router';
 import { IAd } from './../ad-list/ad/ad.component';
 import { DataService } from './../../shared/services/data.service';
 import { NavService } from './../../shared/services/nav.service';
@@ -11,22 +11,39 @@ import { AppRoutes } from './../../ads-app.component';
   templateUrl: 'ad-detail.component.html',
   styleUrls: ['ad-detail.component.css']
 })
-export class AdDetailComponent implements OnInit, OnActivate {
+export class AdDetailComponent implements OnInit {
 
     ad: IAd = { title: '', text: '', _id: '', price: NaN };
+    private sub: any;
 
     constructor(private _dataService: DataService,
-                private _navService: NavService) {
+                private _navService: NavService,
+                private _router: Router) {
 
     }
 
     ngOnInit() {
+        this.sub = this._router
+            .routerState
+            .queryParams
+            .subscribe(params => {
+                console.log('****params', params);
+                // this.selectedId = +params['id'];
+                // this.service.getHeroes()
+                // .then(heroes => this.heroes = heroes);
+                     this._dataService.getAd(params['id'])
+                        .subscribe((ad: IAd) => this.ad = ad);
+            });
     }
 
-    routerOnActivate(rs: RouteSegment) {
-        this._dataService.getAd(rs.getParam('id'))
-                    .subscribe((ad: IAd) => this.ad = ad);
-
-        this._navService.changedRoute(AppRoutes.AdDetail);
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
+
+    // routerOnActivate(rs: RouteSegment) {
+    //     this._dataService.getAd(rs.getParam('id'))
+    //                 .subscribe((ad: IAd) => this.ad = ad);
+
+    //     this._navService.changedRoute(AppRoutes.AdDetail);
+    // }
 }

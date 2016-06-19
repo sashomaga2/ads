@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
     notification: string;
     notificationType: string;
     notificationInProgress: boolean = false;
-    profileName: string;
+    profileName: string = '';
 
     subscription: Subscription;
 
@@ -39,6 +39,7 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('init header component...');
         this.subscription = this._navService.selectedRoute$
             .subscribe(item => {
                 console.log('item', item);
@@ -48,10 +49,12 @@ export class HeaderComponent implements OnInit {
         this.subscription = this._authService.loginStatus$
             .subscribe(status => {
                 // TODO hack fix
-                if(typeof status === 'boolean') {
+                //if(typeof status === 'boolean') {
                     let user:User = this._authService.getLoggedUser();
-                    this.profileName = `${user.firstName} ${user.lastName}`;
-                }
+                    if(user){
+                        this.profileName = `${user.firstName} ${user.lastName}`;
+                    }
+                //}
             });
 
 

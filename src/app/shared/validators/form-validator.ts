@@ -1,5 +1,5 @@
-import { Control } from '@angular/common';
-import { ValidatorFn } from "@angular/common/src/forms/directives/validators";
+import { Control } from '@angular/common/src/forms-deprecated';
+import { ValidatorFn } from "@angular/common/src/forms-deprecated/directives/validators";
 import { Config } from "../../config/config";
 
 export class FormValidator{

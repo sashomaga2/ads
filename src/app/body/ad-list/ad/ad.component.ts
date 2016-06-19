@@ -36,6 +36,8 @@ export class AdComponent implements IAd, OnInit {
         this.title = this.data.title;
         this.text = this.data.text;
         this.price = this.data.price;
+        console.log('this._id', this._id);
+        console.log('this.data', this.data);
     }
 
     onClick() : void {
