@@ -14,9 +14,9 @@ export const routes: RouterConfig = [
     {path: 'ads', component: AdListComponent},
     {path: 'newAd',  component: NewAdComponent},
     {path: 'adDetail/:id',  component: AdDetailComponent},
-    {path: 'login',  component: LoginComponent}, //, canDeactivate:[AuthGuard]
-    {path: 'register',  component: RegisterComponent}, //, canDeactivate: [AuthGuard]
-    {path: 'profile',  component: ProfileComponent, canActivate: [AuthGuard]}, // ,
+    {path: 'login',  component: LoginComponent, canActivate: [AuthGuard] },
+    {path: 'register',  component: RegisterComponent, canActivate: [AuthGuard]},
+    {path: 'profile',  component: ProfileComponent, canActivate: [AuthGuard]},
     //TODO remove below when index:true is fixed
     {path: '*',  component: AdListComponent},
     {path: '',  component: AdListComponent}
