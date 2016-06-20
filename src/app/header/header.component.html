@@ -1,11 +1,13 @@
 <div class="row">
     <div class='col-md-8 col-xs-2'></div>
     <div class='col-md-3 col-xs-2 text-nowrap'>
-        <a *ngIf="isMain" class="btn btn-success" [style.width.px]="btnWidth" (click)="newAdClicked()" [routerLink]="['newAd']">
+        <!-- TODO fix *ngIf="isMain" -->
+        <a  class="btn btn-success" [style.width.px]="btnWidth" (click)="newAdClicked()" [routerLink]="['newAd']">
             <span class="glyphicon glyphicon-plus-sign"></span>
             <span>New Ad</span>
         </a>
-        <a *ngIf="!isMain" class="btn btn-success" [style.width.px]="btnWidth" (click)="backClicked()" [routerLink]="['ads']">
+        <!-- TODO fix *ngIf="!isMain" -->
+        <a  class="btn btn-success" [style.width.px]="btnWidth" (click)="backClicked()" [routerLink]="['ads']">
             <span class="glyphicon glyphicon-arrow-left"></span>
             <span>Back</span>
         </a>

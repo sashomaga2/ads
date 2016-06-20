@@ -3,8 +3,6 @@ import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { BaseHttpService, IResponse } from './base-http.service';
-import { NotifyService } from './notify.service';
-
 
 export interface IUser {
     email: string;
@@ -34,8 +32,7 @@ export class AuthService extends BaseHttpService {
     // Observable stream
     loginStatus$ = this._loginStatus.asObservable();
 
-    constructor(private _http: Http,
-                private _notify: NotifyService) {
+    constructor(private _http: Http) {
         super();
     }
 

@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
     notification: string;
     notificationType: string;
     notificationInProgress: boolean = false;
-    profileName: string = '';
+    profileName: string;
 
     subscription: Subscription;
 
@@ -31,10 +31,12 @@ export class HeaderComponent implements OnInit {
     }
 
     newAdClicked() :void {
+      console.log('new ad clicked!');
         this.isMain = false;
     }
 
     backClicked() :void {
+        console.log('back clicked!');
         this.isMain = true;
     }
 
@@ -48,13 +50,10 @@ export class HeaderComponent implements OnInit {
 
         this.subscription = this._authService.loginStatus$
             .subscribe(status => {
-                // TODO hack fix
-                //if(typeof status === 'boolean') {
-                    let user:User = this._authService.getLoggedUser();
-                    if(user){
-                        this.profileName = `${user.firstName} ${user.lastName}`;
-                    }
-                //}
+                let user:User = this._authService.getLoggedUser();
+                if(user){
+                    this.profileName = `${user.firstName} ${user.lastName}`;
+                }
             });
 
 

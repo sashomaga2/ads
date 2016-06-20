@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
                 .subscribe(
                     (response: Response) => {
                         if(response.status){
-                            console.log('success login');
                             this._router.navigate(['/profile']);
                             //this._notify.showSuccessMsg(successMsg);
                         }else{
