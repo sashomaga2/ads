@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { BaseHttpService, IResponse } from './base-http.service';
 
 export interface IUser {
+    _id: string
     email: string;
     password: string;
     firstName: string;
@@ -36,8 +37,6 @@ export class AuthService extends BaseHttpService {
         super();
     }
 
-
-
     //TODO implement
     logout() {
     }
@@ -46,18 +45,14 @@ export class AuthService extends BaseHttpService {
         this._loggedIn = isLogged;
         this._loginStatus.next(isLogged);
     }
-
-    _initLoginStatus() {
-
-    }
     
     checkLogin(): Observable<IResponse> {
-        console.log('check loggin!!!');
         return this._http.get('/login-check')
             .map((response: Response) => response.json())
             .do((response: IResponse) =>  {
                 if(response.status) {
-                    this._user = new User('12345', 'sas@abv.bg', '', 'Sasho', 'Marinov');
+                    let user = <IUser>response.data;
+                    this._user = new User(user._id, user.email, '', user.firstName, user.lastName);
                     this._setLoginStatus(true);
                 }
             });
@@ -79,7 +74,8 @@ export class AuthService extends BaseHttpService {
             .map((response: Response) => response.json())
             .do((response: IResponse) =>  {
                 if(response.status) {
-                    this._user = new User('12345', 'sas@abv.bg', '', 'Sasho', 'Marinov');
+                    let user = <IUser>response.data;
+                    this._user = new User(user._id, user.email, '', user.firstName, user.lastName);
                     this._setLoginStatus(true);
                 }
             });

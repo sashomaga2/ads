@@ -3,7 +3,9 @@ import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { Response } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 import { NavService } from './../../shared/services/nav.service';
+import { IResponse } from './../../shared/services/base-http.service';
 import { AuthService, User } from './../../shared/services/auth.service';
+import { NotifyService } from './../../shared/services/notify.service';
 import { AppRoutes } from './../../ads-app.component';
 import { Config } from "./../../config/config";
 
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
 
     constructor(private _navService: NavService,
                 private _authService: AuthService,
+                private _notifyService: NotifyService,
                 private _router: Router) {
     }
 
@@ -35,13 +38,12 @@ export class LoginComponent implements OnInit {
         if(this.isValid()) {
             this._authService.login(this.user)
                 .subscribe(
-                    (response: Response) => {
+                    (response: IResponse) => {
                         if(response.status){
                             this._router.navigate(['/profile']);
-                            //this._notify.showSuccessMsg(successMsg);
+                            //this._notifyService.showSuccessMsg(successMsg);
                         }else{
-                            console.log('fail login');
-                            //this._notify.showErrorMsg(result.error);
+                            this._notifyService.showErrorMsg(response.error);
                         }
 
                     }

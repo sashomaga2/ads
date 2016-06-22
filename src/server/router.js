@@ -53,7 +53,7 @@ module.exports = function (app) {
             } else if(existAlready) {
                 result.error = "Email is already used!";
             } else {
-                var user = new UserModel({ email: reqBody.email });
+                var user = new UserModel({ email: reqBody.email, password: reqBody.password, firstName: reqBody.firstName, lastName: reqBody.lastName });
                 return user.save(function(err){
                     if(err) {
                         result.error = "DB Error!";
@@ -71,16 +71,19 @@ module.exports = function (app) {
     
     app.post('/login-api', function(req, res, next){
         passport.authenticate('local', {}, function(err, user){
-            console.log('authenticate', user);
-            req.logIn(user, function(err) {
-                if(err) { console.log('Error!', err); return }
-                res.json({ status: STATUS_SUCCESS, data: req.user });
-            });
+            if(user) {
+                req.logIn(user, function(err) {
+                    if(err) { console.log('Error!', err); return }
+                    res.json({ status: STATUS_SUCCESS, data: req.user });
+                });
+            } else {
+                res.json({ status: STATUS_FAIL, error: 'Username or password not match!' });
+            }
+
         })(req, res, next);
     });
 
     app.get('/login-check', function(req, res){
-        console.log('user', req.user);
        if(req.user) {
            res.json({ status: STATUS_SUCCESS, data: req.user });
        } else {

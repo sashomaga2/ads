@@ -7,7 +7,7 @@ export enum Status { FAIL = 0, SUCCESS };
 export interface IResponse {
     status: Status,
     error?: string,
-    data?: Object[]
+    data?: any
 }
 
 export interface IRestService {
