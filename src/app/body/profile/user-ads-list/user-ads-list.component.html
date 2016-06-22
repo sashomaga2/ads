@@ -1,3 +1,24 @@
-<ul class="list-group">
-    <li class="list-group-item">Some ad</li>
+
+<div class="row">
+    <div class="col-md-3 col-xs-3 col-md-offset-1 col-xs-offset-1">Title</div>
+    <div class="col-md-3 col-xs-3">Text</div>
+    <div class="col-md-3 col-xs-3">Price</div>
+</div>
+<ul class="list-group" *ngFor="let ad of ads">
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col-md-3 col-xs-3">
+                <h4 class="list-group-item-heading">{{ ad.title }}</h4>
+            </div>
+            <div class="col-md-3 col-xs-3">
+                <p class="list-group-item-text">{{ ad.text }}</p>
+            </div>
+            <div class="col-md-3 col-xs-3">
+                <p class="list-group-item-text">{{ ad.price }}</p>
+            </div>
+        </div>
+        <a href="" ><span class="glyphicon glyphicon-share" ></span>View</a>
+        <a href="" ><span class="glyphicon glyphicon glyphicon-pencil" ></span>Edit</a>
+        <a href="" style="color: red;"><span class="glyphicon glyphicon-remove" ></span>Delete</a>
+    </li>
 </ul>

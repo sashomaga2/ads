@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { FORM_DIRECTIVES, FormBuilder, Control, ControlGroup, Validators } from '@angular/common/src/forms-deprecated';
+import { Subscription } from 'rxjs/Subscription';
 import { NavService } from './../../shared/services/nav.service';
 import { AuthService } from './../../shared/services/auth.service';
 import { AppRoutes } from './../../ads-app.component';
@@ -23,7 +24,7 @@ export class RegisterComponent extends BaseForm implements OnInit {
     password: Control;
     retypePassword: Control;
 
-    private sub: any; 
+    private subscription: Subscription;
 
     constructor(private _navService: NavService,
                 private _authService: AuthService,
@@ -52,7 +53,7 @@ export class RegisterComponent extends BaseForm implements OnInit {
     }
 
     ngOnInit() {
-        this.sub = this._router
+        this.subscription = this._router
             .routerState
             .queryParams
             .subscribe(params => {
@@ -60,7 +61,7 @@ export class RegisterComponent extends BaseForm implements OnInit {
             });
     }
 
-    // routerOnActivate() {
-    //     this._navService.changedRoute(AppRoutes.Register);
-    // }
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
 }

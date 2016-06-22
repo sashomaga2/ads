@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { Response } from '@angular/http';
+import { Subscription } from 'rxjs/Subscription';
 import { NavService } from './../../shared/services/nav.service';
 import { AuthService, User } from './../../shared/services/auth.service';
 import { AppRoutes } from './../../ads-app.component';
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
     user: User = new User();
     submitAttempt: boolean = false;
 
-    private sub: any;
+    private subscription: Subscription;
 
     constructor(private _navService: NavService,
                 private _authService: AuthService,
@@ -55,7 +56,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.sub = this._router
+        this.subscription = this._router
             .routerState
             .queryParams
             .subscribe(params => {
@@ -63,7 +64,7 @@ export class LoginComponent implements OnInit {
             });
     }
 
-    // routerOnActivate() {
-    //     this._navService.changedRoute(AppRoutes.Login);
-    // }
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
 }

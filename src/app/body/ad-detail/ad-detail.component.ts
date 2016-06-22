@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 import { IAd } from './../ad-list/ad/ad.component';
 import { DataService } from './../../shared/services/data.service';
 import { NavService } from './../../shared/services/nav.service';
@@ -14,7 +15,7 @@ import { AppRoutes } from './../../ads-app.component';
 export class AdDetailComponent implements OnInit {
 
     ad: IAd = { title: '', text: '', _id: '', price: NaN };
-    private sub: any;
+    private subscription: Subscription;
 
     constructor(private _dataService: DataService,
                 private _navService: NavService,
@@ -23,7 +24,7 @@ export class AdDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.sub = this._router
+        this.subscription = this._router
             .routerState
             .queryParams
             .subscribe(params => {
@@ -37,13 +38,6 @@ export class AdDetailComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
+        this.subscription.unsubscribe();
     }
-
-    // routerOnActivate(rs: RouteSegment) {
-    //     this._dataService.getAd(rs.getParam('id'))
-    //                 .subscribe((ad: IAd) => this.ad = ad);
-
-    //     this._navService.changedRoute(AppRoutes.AdDetail);
-    // }
 }
