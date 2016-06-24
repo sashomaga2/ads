@@ -1,6 +1,6 @@
 import { provideRouter, RouterConfig } from '@angular/router';
+import { HTTP_PROVIDERS } from '@angular/http';
 import { AdListComponent } from './body/ad-list/ad-list.component';
-import { HeaderComponent } from './header/header.component';
 import { NewAdComponent } from './body/new-ad/new-ad.component';
 import { AdDetailComponent } from './body/ad-detail/ad-detail.component';
 import { LoginComponent } from './body/auth/login.component';
@@ -8,7 +8,7 @@ import { RegisterComponent } from './body/auth/register.component';
 import { ProfileComponent } from './body/profile/profile.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AuthService } from './shared/services/auth.service';
-import { HTTP_PROVIDERS } from '@angular/http';
+
 
 export const routes: RouterConfig = [
     {path: 'ads', component: AdListComponent},

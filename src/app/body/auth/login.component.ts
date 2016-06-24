@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
             .routerState
             .queryParams
             .subscribe(params => {
+                console.log('AppRoutes', AppRoutes);
                  this._navService.changedRoute(AppRoutes.Login);
             });
     }

@@ -4,10 +4,7 @@ import 'rxjs/Rx';
 import { AdListComponent } from './body/ad-list/ad-list.component';
 import { HeaderComponent } from './header/header.component';
 import { NewAdComponent } from './body/new-ad/new-ad.component';
-import { DataService } from './shared/services/data.service';
-import { NavService } from './shared/services/nav.service';
-import { AuthService } from './shared/services/auth.service';
-import { NotifyService } from './shared/services/notify.service';
+import { DataService, NavService, AuthService, NotifyService } from './shared/services/index';
 
 export const enum AppRoutes {Ads, NewAd, AdDetail, Login, Register, Profile};
 
